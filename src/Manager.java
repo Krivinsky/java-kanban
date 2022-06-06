@@ -10,10 +10,7 @@ public class Manager {
     HashMap<Integer, Subtask> subtaskMap = new HashMap<>();    //хранить подзадачи
     HashMap<Integer, Epic> epicMap = new HashMap<>();  // хранить эпики
 
-    void proverkaMetod(){ //прост метод для проверки всякого
-
-    }
-    //todo попробовать переделать методы (Получение, Удаление, Получение по id) на универ-й через
+    //todo попробовать переделать методы (Получение, Удаление, Получение по id) на универсальный через
     //получение класса
     public void getTaskClass(){}
 
@@ -88,16 +85,33 @@ public class Manager {
         task.status = status;
         taskMap.put(id, task);
     }
-    public void updateSubtask(Subtask subtask, int id, String status){  //Обновление даных подзадачи
+    public void updateSubtask(Subtask subtask, int idSubtask, String status, int idEpic){  //Обновление даных подзадачи
         subtask.status = status;
-        subtaskMap.put(id, subtask);
+        subtaskMap.put(idSubtask, subtask);
+        epicMap.get(idEpic).amountOfSubtask.add(subtask);
     }
     public void updateEpic(Epic epic, int id){  //Обновление даных эпика
-        if (epic.amountOfSubtask.isEmpty()) epic.status = "new";
-
-        for (Subtask subtask : epic.amountOfSubtask) {
-
+        int countNew = 0;
+        int countINprogress = 0;
+        int countDone = 0;
+        if (epic.amountOfSubtask.isEmpty()) {
+            epic.status = "new";
+            epicMap.put(id, epic);
+            return;
         }
+        for (Subtask subtask : epic.amountOfSubtask) {
+            if (subtask.status.equals("DONE")) {
+                countDone++;
+            } else if (subtask.status.equals("NEW")) {
+                countNew++;
+            } else countINprogress++;
+        }
+
+        if (countNew == epic.amountOfSubtask.size()) {
+            epic.status = "NEW";
+        }else if (countDone == epic.amountOfSubtask.size()) {
+            epic.status = "DONE";
+        } else epic.status = "IN_PROGRESS";
         epicMap.put(id, epic);
     }
 
@@ -119,11 +133,5 @@ public class Manager {
             }
         }
         return subtasksList;
-    }
-
-    public String statusTask(Task task){   //Управление статусами
-        String status = task.status;
-        //todo написать этот метод
-        return status;
     }
 }
