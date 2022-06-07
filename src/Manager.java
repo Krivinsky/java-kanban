@@ -71,6 +71,7 @@ public class Manager {
         subtaskMap.put(idSubtask, subtask);
         subtask.nameOfEpic = epicMap.get(idEpic).name;
         epicMap.get(idEpic).amountOfSubtask.add(subtask);
+
         return subtask;
     }
     public Epic creationEpic(Epic epic){   //Создание epic.
@@ -123,6 +124,7 @@ public class Manager {
     }
     public void deleteEpicOfId(int id){    //Удаление эпика по идентификатору
         epicMap.remove(id);
+        //todo при удалении эпика надо удалить все его подзадачи из HashMap подзадач
     }
 
     public ArrayList<Subtask> getEpicSubtasksList(Epic epic){  //Получение списка всех подзадач определённого эпика
