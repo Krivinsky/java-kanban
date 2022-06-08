@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class InMemoryTaskManager implements TaskManager{
@@ -81,6 +82,7 @@ public class InMemoryTaskManager implements TaskManager{
     }
     public void updateEpic(Epic epic, int id){  //Обновление даных эпика
         int countNew = 0;
+        int countINprogress = 0;
         int countDone = 0;
         if (epic.subtasksid.isEmpty()) {
             epic.status = Status.NEW;
