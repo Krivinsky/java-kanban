@@ -1,11 +1,10 @@
 import java.util.ArrayList;
 
 public class Subtask extends Task {
-    String nameOfEpic;
     int idEpic;
 
-    Subtask(String name, String description, String nameOfEpic) {
+    Subtask(String name, String description, int idEpic) {
         super(name, description);
-        this.nameOfEpic = nameOfEpic;
+        this.idEpic = idEpic;
     }
 }
