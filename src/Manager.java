@@ -10,11 +10,6 @@ public class Manager {
     HashMap<Integer, Subtask> subtaskMap = new HashMap<>();    //хранить подзадачи
     HashMap<Integer, Epic> epicMap = new HashMap<>();  // хранить эпики
 
-    //todo попробовать переделать методы (Получение, Удаление, Получение по id) на универсальный через
-    //получение класса
-    public void getTaskClass(){}
-
-
     public ArrayList<Task> getTaskList(){  //Получение списка задач
         ArrayList<Task> taskList = new ArrayList<>();
         for (Integer key: taskMap.keySet()) {
@@ -59,24 +54,24 @@ public class Manager {
 
     public Task creationTask(Task task){   //Создание task.
         idTask++;
-        task.status = "new";
+        task.status = "NEW";
         task.ID = idTask;
         taskMap.put(idTask, task);
         return task;
     }
     public Subtask creationSubtask(Subtask subtask, int idEpic){   //Создание subtask.
         idSubtask++;
-        subtask.status = "new";
+        subtask.status = "NEW";
         subtask.ID = idSubtask;
         subtaskMap.put(idSubtask, subtask);
         subtask.nameOfEpic = epicMap.get(idEpic).name;
-        epicMap.get(idEpic).amountOfSubtask.add(subtask);
+        epicMap.get(idEpic).subtasksid.add(subtask.ID);
 
         return subtask;
     }
     public Epic creationEpic(Epic epic){   //Создание epic.
         idEpic++;
-        epic.status = "new";
+        epic.status = "NEW";
         epic.ID = idEpic;
         epicMap.put(idEpic, epic);
         return epic;
@@ -90,6 +85,7 @@ public class Manager {
         subtask.status = status;
         subtaskMap.put(idSubtask, subtask);
         epicMap.get(idEpic).amountOfSubtask.add(subtask);
+        epicMap.get(idEpic).subtasksid.add(idSubtask);
     }
     public void updateEpic(Epic epic, int id){  //Обновление даных эпика
         int countNew = 0;
@@ -123,10 +119,11 @@ public class Manager {
         subtaskMap.remove(id);
     }
     public void deleteEpicOfId(int id){    //Удаление эпика по идентификатору
+        for (Integer integer : epicMap.get(id).subtasksid) {
+            subtaskMap.remove(integer);
+        }
         epicMap.remove(id);
-        //todo при удалении эпика надо удалить все его подзадачи из HashMap подзадач
     }
-
     public ArrayList<Subtask> getEpicSubtasksList(Epic epic){  //Получение списка всех подзадач определённого эпика
         ArrayList<Subtask> subtasksList = new ArrayList<>();
         for (Subtask subtask : subtaskMap.values()){
