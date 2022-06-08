@@ -78,11 +78,12 @@ public class InMemoryTaskManager implements TaskManager{
         subtask.status = status;
         subtaskMap.put(idSubtask, subtask);
         subtask.idEpic = idEpic;
+        epicMap.get(idEpic).amountOfSubtask.add(subtask);
         epicMap.get(idEpic).subtasksid.add(idSubtask);
+
     }
     public void updateEpic(Epic epic, int id){  //Обновление даных эпика
         int countNew = 0;
-        int countINprogress = 0;
         int countDone = 0;
         if (epic.subtasksid.isEmpty()) {
             epic.status = Status.NEW;
