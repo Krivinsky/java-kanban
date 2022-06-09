@@ -74,16 +74,28 @@ public class CheckingWork {
 //        manager.updateEpic(epic1, epic1.ID);
 //        System.out.println(epic1.name + "  " + epic1.description  + "  " +  epic1.ID + "  " + epic1.status);
         Manager manager = new Manager();
-        Task task1 = new Task("Забрать посылку","Сходить на почту и забрать посылку");
-        manager.creationTask(task1);
-        manager.creationTask(task1);
-        manager.creationTask(task1);
-        manager.creationTask(task1);
-        manager.creationTask(task1);
-        manager.creationTask(task1);
 
-        System.out.println("Список задач:");
-        for (Task task : manager.getTaskList()) {
+        Epic epic1 = new Epic("Ремонт в квартире", "Ремонт в своей квартире");
+        manager.creationEpic(epic1);
+        Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить обои, клей, валики",1);
+        manager.creationSubtask(subtask1, epic1.ID);
+        Subtask subtask2 = new Subtask("Нанять рабочих", "Заключить договор, Принять работы",1);
+        manager.creationSubtask(subtask2, epic1.ID);
+
+        Epic epic2 = new Epic("Ремонт машины", "Ремонт Ниссан");
+        manager.creationEpic(epic2);
+        Subtask subtask3 = new Subtask("Закупить запчасти", "Найти ужные запчасти и закупить",2);
+        manager.creationSubtask(subtask3, epic2.ID);
+
+        System.out.println("Список подзадач:");
+        for (Task task : manager.getSubtasksList()) {
+            System.out.println(task.ID+". "+task.name + ". " + task.description + ". " + task.status);
+        }
+
+        manager.deleteEpicOfId(1);
+
+        System.out.println("Список подзадач :");
+        for (Task task : manager.getSubtasksList()) {
             System.out.println(task.ID+". "+task.name + ". " + task.description + ". " + task.status);
         }
     }
