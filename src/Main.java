@@ -14,14 +14,14 @@ public class Main {
 //
 //        Epic epic1 = new Epic("Ремонт в квартире", "Ремонт в своей квартире");
 //        manager.creationEpic(epic1);
-//        Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить обои, клей, валики","Ремонт в квартире");
+//        Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить обои, клей, валики",1);
 //        manager.creationSubtask(subtask1, epic1.ID);
-//        Subtask subtask2 = new Subtask("Нанять рабочих", "Заключить договор, Принять работы","Ремонт в квартире");
+//        Subtask subtask2 = new Subtask("Нанять рабочих", "Заключить договор, Принять работы",1);
 //        manager.creationSubtask(subtask2, epic1.ID);
 //
 //        Epic epic2 = new Epic("Ремонт машины", "Ремонт Ниссан");
 //        manager.creationEpic(epic2);
-//        Subtask subtask3 = new Subtask("Закупить запчасти", "Найти ужные запчасти и закупить","Ремонт машины");
+//        Subtask subtask3 = new Subtask("Закупить запчасти", "Найти ужные запчасти и закупить",2);
 //        manager.creationSubtask(subtask3, epic2.ID);
 //
 //        System.out.println("Список задач:");
@@ -79,5 +79,6 @@ public class Main {
 
         CheckingWork checkingWork = new CheckingWork();
         checkingWork.check();
+
     }
 }
