@@ -1,79 +1,75 @@
-import java.awt.*;
-import java.sql.Array;
-import java.util.Arrays;
-
 public class Main {
 
     public static void main(String[] args) {
-//        Manager manager = new Manager();
+//        InMemoryTaskManager taskManager = new InMemoryTaskManager();
 //
 //        Task task1 = new Task("Забрать посылку","Сходить на почту и забрать посылку");
-//        manager.creationTask(task1);
+//        taskManager.creationTask(task1);
 //        Task task2 = new Task("Заменить масло", "Заменить моторное масло в машине");
-//        manager.creationTask(task2);
+//        taskManager.creationTask(task2);
 //
 //        Epic epic1 = new Epic("Ремонт в квартире", "Ремонт в своей квартире");
-//        manager.creationEpic(epic1);
+//        taskManager.creationEpic(epic1);
 //        Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить обои, клей, валики",1);
-//        manager.creationSubtask(subtask1, epic1.ID);
+//        taskManager.creationSubtask(subtask1, epic1.ID);
 //        Subtask subtask2 = new Subtask("Нанять рабочих", "Заключить договор, Принять работы",1);
-//        manager.creationSubtask(subtask2, epic1.ID);
+//        taskManager.creationSubtask(subtask2, epic1.ID);
 //
 //        Epic epic2 = new Epic("Ремонт машины", "Ремонт Ниссан");
-//        manager.creationEpic(epic2);
+//        taskManager.creationEpic(epic2);
 //        Subtask subtask3 = new Subtask("Закупить запчасти", "Найти ужные запчасти и закупить",2);
-//        manager.creationSubtask(subtask3, epic2.ID);
+//        taskManager.creationSubtask(subtask3, epic2.ID);
 //
 //        System.out.println("Список задач:");
-//        for (Task task : manager.getTaskList()) {
+//        for (Task task : taskManager.getTaskList()) {
 //            System.out.println(task.name + ". " + task.description + ". " + task.status);
 //        }
 //        System.out.println("\nСписок подзадач:");
-//        for (Subtask subtask : manager.getSubtasksList()) {
+//        for (Subtask subtask : taskManager.getSubtasksList()) {
 //            System.out.println(subtask.name + ". " + subtask.description + ". " + subtask.status);
 //        }
 //        System.out.println("\nСписок эпиков:");
-//        for (Epic epic : manager.getEpicList()) {
+//        for (Epic epic : taskManager.getEpicList()) {
 //            System.out.println(epic.name + ". " + epic.description + ". " + epic.status);
 //        }
 //
-//        manager.updateTask(task1, task1.ID, Status.IN_PROGRESS);
-//        manager.updateTask(task2, task2.ID, Status.DONE);
+//        taskManager.updateTask(task1, task1.ID, Status.IN_PROGRESS);
+//        taskManager.updateTask(task2, task2.ID, Status.DONE);
 //
-//        manager.updateSubtask(subtask1, subtask1.ID, Status.DONE, epic1.ID);
-//        manager.updateSubtask(subtask2, subtask2.ID, Status.IN_PROGRESS, epic1.ID);
-//        manager.updateSubtask(subtask3, subtask3.ID, Status.DONE, epic2.ID);
+//        taskManager.updateSubtask(subtask1, subtask1.ID, Status.DONE, epic1.ID);
+//        taskManager.updateSubtask(subtask2, subtask2.ID, Status.IN_PROGRESS, epic1.ID);
+//        taskManager.updateSubtask(subtask3, subtask3.ID, Status.DONE, epic2.ID);
 //
 //
-//        manager.updateEpic(epic1, epic1.ID);
-//        manager.updateEpic(epic2, epic2.ID);
+//        taskManager.updateEpic(epic1, epic1.ID);
+//        taskManager.updateEpic(epic2, epic2.ID);
 //
 //        System.out.println("\nСписок задач:");
-//        for (Task task : manager.getTaskList()) {
+//        for (Task task : taskManager.getTaskList()) {
 //            System.out.println(task.name + ". " + task.description + ". " + task.status);
 //        }
 //        System.out.println("\nСписок подзадач:");
-//        for (Subtask subtask : manager.getSubtasksList()) {
+//        for (Subtask subtask : taskManager.getSubtasksList()) {
 //            System.out.println(subtask.name + ". " + subtask.description + ". " + subtask.status);
 //        }
 //        System.out.println("\nСписок эпиков:");
-//        for (Epic epic : manager.getEpicList()) {
+//        for (Epic epic : taskManager.getEpicList()) {
 //            System.out.println(epic.name + ". " + epic.description + " " + epic.status);
 //        }
 //
-//        manager.deleteTaskOfId(1);
-//        manager.deleteEpicOfId(2);
+//        taskManager.deleteTaskOfId(1);
+//        taskManager.deleteEpicOfId(2);
 //
 //        System.out.println("\nСписок задач");
-//        for (Task task : manager.getTaskList()) {
+//        for (Task task : taskManager.getTaskList()) {
 //            System.out.println(task.name + ". " + task.description + ". " + task.status);
 //        }
 //        System.out.println("\nСписок подзадач");
-//        for (Subtask subtask : manager.getSubtasksList()) {
+//        for (Subtask subtask : taskManager.getSubtasksList()) {
 //            System.out.println(subtask.name + ". " + subtask.description + ". " + subtask.status);
 //        }
 //        System.out.println("\nСписок эпиков");
-//        for (Epic epic : manager.getEpicList()) {
+//        for (Epic epic : taskManager.getEpicList()) {
 //            System.out.println(epic.name + ". " + epic.description + " " + epic.status);
 //        }
 
