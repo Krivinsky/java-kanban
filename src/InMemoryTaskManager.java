@@ -1,22 +1,22 @@
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager{
-    //todo переделать на сплошную нумерацию
-    int idTask;  // генерация идентификаторов +1, когда нужно получить новое значение.
-    int idSubtask;
-    int idEpic;
+
+    private int generateId = 0;
 
     HashMap<Integer, Task> taskMap = new HashMap<>();  //хранить задачи
-    HashMap<Integer, Subtask> subtaskMap = new HashMap<>();    //хранить подзадачи
+    HashMap<Integer, Subtask> subtaskMap = new HashMap<>();    //хранить подзадачи  //todo удалить эту Мапу 4)
     HashMap<Integer, Epic> epicMap = new HashMap<>();  // хранить эпики
 
-    Status statusNew = Status.NEW;
-    Status statusInProgress = Status.IN_PROGRESS;
-    Status statusDone = Status.DONE;
 
-    //todo переделать все методы на универсальные (1 метод на три типа задач)
+    public  int generateId(){
+        return ++generateId;
+    }
+
+
+    //todo переделать все методы на универсальные (1 метод на три типа задач) 3)
     public ArrayList<Task> getTaskList(){  //Получение списка задач
         return new ArrayList<>(taskMap.values());
     }
@@ -38,35 +38,41 @@ public class InMemoryTaskManager implements TaskManager{
     }
 
     public Task getTaskFromId(int id) {    //Получение задачи по идентификатор
+        add(taskMap.get(id));
         return taskMap.get(id);
     }
     public Task getSubtaskFromId(int id) {    //Получение подзадачи по идентификатор
+        add(subtaskMap.get(id));
         return subtaskMap.get(id);
     }
     public Task getEpicFromId(int id) {    //Получение подзадачи по идентификатор
+        add(epicMap.get(id));
         return epicMap.get(id);
     }
 
-    public Task creationTask(Task task){   //Создание task.
-        idTask++;
-        task.ID = idTask;
+    public Task creationTask(Task task){   //Создание task
+        task.setId(generateId());
+//        idTask++;
+//        task.id = idTask;
         task.status = Status.NEW;
-        taskMap.put(idTask, task);
+        taskMap.put(task.getId(), task);
         return task;
     }
-    public Subtask creationSubtask(Subtask subtask, int idEpic){   //Создание subtask.
-        idSubtask++;
-        subtask.ID = idSubtask;
+    public Subtask creationSubtask(Subtask subtask, int epicId){   //Создание subtask.
+        subtask.setId(generateId());
+//        idSubtask++;
+//        subtask.id = idSubtask;
         subtask.status = Status.NEW;
-        subtaskMap.put(idSubtask, subtask);
-        epicMap.get(idEpic).subtasksid.add(subtask.ID);
+        subtaskMap.put(subtask.id, subtask);
+        epicMap.get(epicId).subtasksid.add(subtask.id);
         return subtask;
     }
     public Epic creationEpic(Epic epic){   //Создание epic.
-        idEpic++;
+        epic.setId(generateId());
+//        idEpic++;
+//        epic.id = idEpic;
         epic.status = Status.NEW;
-        epic.ID = idEpic;
-        epicMap.put(idEpic, epic);
+        epicMap.put(epic.getId(), epic);
         return epic;
     }
 
@@ -78,7 +84,6 @@ public class InMemoryTaskManager implements TaskManager{
         subtask.status = status;
         subtaskMap.put(idSubtask, subtask);
         subtask.idEpic = idEpic;
-        epicMap.get(idEpic).amountOfSubtask.add(subtask);
         epicMap.get(idEpic).subtasksid.add(idSubtask);
 
     }
@@ -91,11 +96,9 @@ public class InMemoryTaskManager implements TaskManager{
             return;
         }
         for (Integer integer : epic.subtasksid) {
-            //todo переделать строчку ниже DONE
-            if (subtaskMap.get(integer).status.equals("DONE")) {
+            if (subtaskMap.get(integer).status == Status.DONE) {
                 countDone++;
-                //todo переделать строчку ниже NEW
-            } else if (subtaskMap.get(integer).status.equals("NEW")) {
+            } else if (subtaskMap.get(integer).status == Status.NEW) {
                 countNew++;
             }
         }
@@ -127,7 +130,7 @@ public class InMemoryTaskManager implements TaskManager{
     public ArrayList<Subtask> getEpicSubtasksList(Epic epic){  //Получение списка всех подзадач определённого эпика
         ArrayList<Subtask> subtasksList = new ArrayList<>();
         for (Subtask subtask : subtaskMap.values()){
-            if (subtask.idEpic == epic.ID){
+            if (subtask.idEpic == epic.id){
                 subtasksList.add(subtask);
             }
         }
