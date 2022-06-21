@@ -1,13 +1,11 @@
 
 public class Managers {
 
-    public static HistoryManager getDefaultHistory(){
-
-        return null; //  должен возвращать объект InMemoryHistoryManager
+    public TaskManager getDefault(){
+        return new InMemoryTaskManager();
     }
 
-    public TaskManager getDefault(){
-        TaskManager taskManager = new InMemoryTaskManager();
-        return taskManager;
+    public static  HistoryManager getDefaultHistory(){
+        return new InMemoryHistoryManager();
     }
 }

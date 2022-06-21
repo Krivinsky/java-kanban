@@ -3,9 +3,9 @@ import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    List<Task> history = new ArrayList<>();
+    private final List<Task> history = new ArrayList<>();
     @Override
-    public void add(Task task){
+    public void addTask(Task task){
         if (history.size() <= 10) {
             history.add(task);
         } else {

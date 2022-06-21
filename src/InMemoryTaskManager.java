@@ -7,16 +7,15 @@ public class InMemoryTaskManager implements TaskManager{
     private int generateId = 0;
 
     HashMap<Integer, Task> taskMap = new HashMap<>();  //хранить задачи
-    HashMap<Integer, Subtask> subtaskMap = new HashMap<>();    //хранить подзадачи  //todo удалить эту Мапу 4)
+    HashMap<Integer, Subtask> subtaskMap = new HashMap<>();    //хранить подзадачи
     HashMap<Integer, Epic> epicMap = new HashMap<>();  // хранить эпики
 
+    InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
 
     public  int generateId(){
         return ++generateId;
     }
 
-
-    //todo переделать все методы на универсальные (1 метод на три типа задач) 3)
     public ArrayList<Task> getTaskList(){  //Получение списка задач
         return new ArrayList<>(taskMap.values());
     }
@@ -38,15 +37,15 @@ public class InMemoryTaskManager implements TaskManager{
     }
 
     public Task getTaskFromId(int id) {    //Получение задачи по идентификатор
-        add(taskMap.get(id));
+        inMemoryHistoryManager.addTask(taskMap.get(id));
         return taskMap.get(id);
     }
     public Task getSubtaskFromId(int id) {    //Получение подзадачи по идентификатор
-        add(subtaskMap.get(id));
+        inMemoryHistoryManager.addTask(subtaskMap.get(id));
         return subtaskMap.get(id);
     }
     public Task getEpicFromId(int id) {    //Получение подзадачи по идентификатор
-        add(epicMap.get(id));
+        inMemoryHistoryManager.addTask(epicMap.get(id));
         return epicMap.get(id);
     }
 
@@ -104,7 +103,6 @@ public class InMemoryTaskManager implements TaskManager{
         }
         if (countNew == epic.subtasksid.size()) {
             epic.status = Status.NEW;
-            //todo проверить строчку ниже size
         }else if (countDone == epic.subtasksid.size()) {
             epic.status = Status.DONE;
         } else epic.status = Status.IN_PROGRESS;
