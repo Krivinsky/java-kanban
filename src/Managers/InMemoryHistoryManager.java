@@ -20,6 +20,11 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
+    public void remove(int id) {
+        //todo написать метод
+    }
+
+    @Override
     public List<Task> getHistory() {
         int historyListSize = history.size();
         System.out.println("история просмотров:");  //убрать после проверки метод не должен выводит на экран

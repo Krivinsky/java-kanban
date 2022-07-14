@@ -120,6 +120,7 @@ public class InMemoryTaskManager implements TaskManager {
         subtaskMap.remove(id);
         for (Epic value : epicMap.values()) {
             value.getSubtasksid().remove(id);
+            //todo добавить вызов метода удаления задачи из истории просмотра
         }
     }
     public void deleteEpicOfId(int id){    //Удаление эпика по идентификатору
