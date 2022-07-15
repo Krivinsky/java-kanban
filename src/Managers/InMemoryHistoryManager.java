@@ -2,40 +2,66 @@ package Managers;
 
 import Tasks.Task;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
     private final LinkedList<Task> history = new LinkedList<>();
 
-    private  Node head;
+    private  Node head; //first
+
+    private Node tail;  //last
+
+    private final Map<Integer, Node> nodeMap =  new HashMap<>();
 
     @Override
     public void addTask(Task task) {
-        if (history.size() <= 10) {
-            history.add(task);
+       if (task != null) {
+           return;
+       }
+       final int id = task.getId();
+       linkLast(task);
+       nodeMap.put(id, tail);
+    }
+
+    private void linkLast(Task task) {
+        final  Node node = new Node(tail, task, null);
+        if (head == null) {
+            head = node;
         } else {
-            history.remove(0);
-            history.add(task);
+            tail.next = node;
         }
+        tail = node;
     }
 
     @Override
     public void remove(int id) {
-        //todo написать метод
 
+        Node node = nodeMap.get(id);
+        removeNode(node);
+
+    }
+
+    private void removeNode(Node node) {
+        if (node == null){
+            return;
+        }
+        // todo делать этот метод
     }
 
     @Override
     public List<Task> getHistory() {
-        int historyListSize = history.size();
-        System.out.println("история просмотров:");  //убрать после проверки метод не должен выводит на экран
-        for (int i = 0; i < historyListSize; i++) {
-            System.out.println(history.get(i).getId());
+        return getTask();
+    }
+
+    private List<Task> getTask() {
+        List<Task> result = new ArrayList<>();
+        Node node = head;
+        while (node != null){
+            result.add(node.getTask());
+            node = node.next;
         }
-        return history;
+        return result;
     }
 
     class CustomLinkedList {

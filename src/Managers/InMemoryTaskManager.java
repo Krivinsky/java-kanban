@@ -57,8 +57,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     public Task creationTask(Task task){   //Создание task
         task.setId(generateId());
-//        idTask++;
-//        task.id = idTask;
         task.setStatus(Status.NEW);
         taskMap.put(task.getId(), task);
         return task;
@@ -72,8 +70,6 @@ public class InMemoryTaskManager implements TaskManager {
     }
     public Epic creationEpic(Epic epic){   //Создание epic.
         epic.setId(generateId());
-//        idEpic++;
-//        epic.id = idEpic;
         epic.setStatus(Status.NEW);
         epicMap.put(epic.getId(), epic);
         return epic;
