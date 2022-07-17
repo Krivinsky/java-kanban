@@ -111,6 +111,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     public void deleteTaskOfId(int id){    //Удаление задачи по идентификатору
         taskMap.remove(id);
+        inMemoryHistoryManager.remove(id);
     }
     public void deleteSubtaskOfId(int id){    //Удаление подзадачи по идентификатору
         subtaskMap.remove(id);

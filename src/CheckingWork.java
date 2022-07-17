@@ -10,7 +10,9 @@ import java.util.List;
 
 public class CheckingWork {
     public void check(){
+
         InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
+
         InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
 
 
@@ -56,17 +58,19 @@ public class CheckingWork {
 //   п. 2.3   Получение по идентификатору
         inMemoryTaskManager.getTaskFromId(task1.getId());
         inMemoryTaskManager.getTaskFromId(task2.getId());
-        inMemoryHistoryManager.getHistory();
+        System.out.println("task list = " + inMemoryHistoryManager.getHistory());
 
 
         inMemoryTaskManager.getSubtaskFromId(subtask1.getId());
         inMemoryTaskManager.getSubtaskFromId(subtask2.getId());
         inMemoryTaskManager.getSubtaskFromId(subtask3.getId());
-        inMemoryHistoryManager.getHistory();
+        System.out.println("task list = " + inMemoryHistoryManager.getHistory());
+
+
 
         inMemoryTaskManager.getEpicFromId(epic1.getId());
         inMemoryTaskManager.getEpicFromId(epic2.getId());
-        inMemoryHistoryManager.getHistory();
+        System.out.println("task list = " + inMemoryHistoryManager.getHistory());
 
         inMemoryTaskManager.updateSubtask(subtask1, subtask1.getId(), Status.DONE, epic1.getId());
         inMemoryTaskManager.updateSubtask(subtask2, subtask2.getId(), Status.DONE, epic1.getId());
@@ -100,7 +104,8 @@ public class CheckingWork {
 //            System.out.println(task.id+". "+task.name + ". " + task.description + ". " + task.status);
 //        }
 
-        System.out.println("task list = " + inMemoryTaskManager.getTaskList());
+        System.out.println("task list = " + inMemoryHistoryManager.getHistory());
+
 
     }
 }

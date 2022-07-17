@@ -1,3 +1,6 @@
+import Managers.Managers;
+import Managers.TaskManager;
+
 import java.awt.*;
 import java.sql.Array;
 import java.util.Arrays;
@@ -76,6 +79,8 @@ public class Main {
 //        for (Tasks.Epic epic : taskManager.getEpicList()) {
 //            System.out.println(epic.name + ". " + epic.description + " " + epic.status);
 //        }
+
+        TaskManager taskManager = Managers.getDefault();
 
         CheckingWork checkingWork = new CheckingWork();
         checkingWork.check();
