@@ -1,23 +1,21 @@
-import Managers.InMemoryHistoryManager;
-import Managers.InMemoryTaskManager;
+
+import Managers.*;
 import Tasks.Epic;
 import Tasks.Status;
 import Tasks.Subtask;
 import Tasks.Task;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class CheckingWork {
     public void check(){
 
-        InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
+        TaskManager inMemoryTaskManager = Managers.taskManager;
 
-        InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
-
+        HistoryManager inMemoryHistoryManager = Managers.historyManager;
 
         Task task1 = new Task("Забрать посылку","Сходить на почту и забрать посылку");
         inMemoryTaskManager.creationTask(task1);
+
 
         Task task2 = new Task("Заменить масло", "Заменить моторное масло в машине");
         inMemoryTaskManager.creationTask(task2);

@@ -16,7 +16,8 @@ public class InMemoryTaskManager implements TaskManager {
     HashMap<Integer, Subtask> subtaskMap = new HashMap<>();    //хранить подзадачи
     HashMap<Integer, Epic> epicMap = new HashMap<>();  // хранить эпики
 
-    InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
+
+    HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
 
     public  int generateId(){
         return ++generateId;
@@ -117,7 +118,6 @@ public class InMemoryTaskManager implements TaskManager {
         subtaskMap.remove(id);
         for (Epic value : epicMap.values()) {
             value.getSubtasksid().remove(id);
-            //todo добавить вызов метода удаления задачи из истории просмотра
         }
     }
     public void deleteEpicOfId(int id){    //Удаление эпика по идентификатору

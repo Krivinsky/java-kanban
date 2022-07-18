@@ -1,12 +1,8 @@
 package Managers;
-
 import Tasks.Task;
-
 import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
-
-   // private final LinkedList<Task> history = new LinkedList<>();
 
     private Node head; //first
     private Node tail;  //last
@@ -57,7 +53,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (node.next == null && node.prev != null) {
             //хвост
             tail = node.prev;
-            nodeMap.remove(node.getTask().getId());  //todo не уврен что правильно сделал
+            nodeMap.remove(node.getTask().getId());
 
         }
         if (node.prev == null && node.next != null) {
@@ -116,13 +112,13 @@ public class InMemoryHistoryManager implements HistoryManager {
             this.next = next;
         }
 
-//        @Override
-//        public String toString() {
-//            return "Node{" +
-//                    "task=" + task +
-//                    ", prev=" + prev +
-//                    ", next=" + next +
-//                    '}';
-//        }
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "task=" + task +
+                    ", prev=" + prev +
+                    ", next=" + next +
+                    '}';
+        }
     }
 }
