@@ -126,6 +126,11 @@ public class InMemoryTaskManager implements TaskManager {
         }
         epicMap.remove(id);
     }
+/*
+*   Из технического задания спринт 3:
+*   3. Дополнительные методы:
+*      3.1 Получение списка всех подзадач определённого эпика.
+* */
 
     public ArrayList<Subtask> getEpicSubtasksList(Epic epic){  //Получение списка всех подзадач определённого эпика
         ArrayList<Subtask> subtasksList = new ArrayList<>();
