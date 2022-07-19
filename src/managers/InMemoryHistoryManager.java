@@ -1,5 +1,5 @@
-package Managers;
-import Tasks.Task;
+package managers;
+import tasks.Task;
 import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
@@ -38,7 +38,6 @@ public class InMemoryHistoryManager implements HistoryManager {
     public void remove(int id) {
         Node node = nodeMap.get(id);
         removeNode(node);
-
     }
 
     private void removeNode(Node node) {

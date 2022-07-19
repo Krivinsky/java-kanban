@@ -1,9 +1,9 @@
 
-import Managers.*;
-import Tasks.Epic;
-import Tasks.Status;
-import Tasks.Subtask;
-import Tasks.Task;
+import managers.*;
+import tasks.Epic;
+import tasks.Status;
+import tasks.Subtask;
+import tasks.Task;
 
 
 public class CheckingWork {
@@ -52,6 +52,7 @@ public class CheckingWork {
             System.out.println(subtask.getName());
         }
         System.out.println();
+        
 
 //   п. 2.3   Получение по идентификатору
         inMemoryTaskManager.getTaskFromId(task1.getId());
@@ -75,32 +76,6 @@ public class CheckingWork {
 
         inMemoryTaskManager.updateEpic(epic1, epic1.getId());
         System.out.println(epic1.getName() + "  " + epic1.getDescription()  + "  " +  epic1.getId() + "  " + epic1.getStatus());
-
-//        Managers.InMemoryTaskManager inMemoryTaskManager = new Managers.InMemoryTaskManager();
-//
-//        Tasks.Epic epic1 = new Tasks.Epic("Ремонт в квартире", "Ремонт в своей квартире");
-//        inMemoryTaskManager.creationEpic(epic1);
-//        Tasks.Subtask subtask1 = new Tasks.Subtask("Закупить стройматериалы", "Закупить обои, клей, валики",1);
-//        inMemoryTaskManager.creationSubtask(subtask1, epic1.id);
-//        Tasks.Subtask subtask2 = new Tasks.Subtask("Нанять рабочих", "Заключить договор, Принять работы",1);
-//        inMemoryTaskManager.creationSubtask(subtask2, epic1.id);
-//
-//        Tasks.Epic epic2 = new Tasks.Epic("Ремонт машины", "Ремонт Ниссан");
-//        inMemoryTaskManager.creationEpic(epic2);
-//        Tasks.Subtask subtask3 = new Tasks.Subtask("Закупить запчасти", "Найти ужные запчасти и закупить",2);
-//        inMemoryTaskManager.creationSubtask(subtask3, epic2.id);
-//
-//        System.out.println("Список подзадач:");
-//        for (Tasks.Task task : inMemoryTaskManager.getSubtasksList()) {
-//            System.out.println(task.id+". "+task.name + ". " + task.description + ". " + task.status);
-//        }
-//
-//        inMemoryTaskManager.deleteEpicOfId(1);
-//
-//        System.out.println("Список подзадач :");
-//        for (Tasks.Task task : inMemoryTaskManager.getSubtasksList()) {
-//            System.out.println(task.id+". "+task.name + ". " + task.description + ". " + task.status);
-//        }
 
         System.out.println("task list = " + inMemoryHistoryManager.getHistory());
 
