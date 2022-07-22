@@ -35,7 +35,6 @@ public class CheckingWork {
         Subtask subtask3 = new Subtask("Закупить запчасти", "Найти ужные запчасти и закупить",2);
         inMemoryTaskManager.creationSubtask(subtask3, epic2.getId());
 
-
         inMemoryTaskManager.getTaskFromId(task1.getId());
         inMemoryTaskManager.getTaskFromId(task2.getId());
         inMemoryTaskManager.getTaskFromId(task2.getId());

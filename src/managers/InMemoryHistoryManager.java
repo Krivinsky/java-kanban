@@ -39,7 +39,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     public void remove(int id) {
         Node node = nodeMap.get(id);
         removeNode(node);
-        nodeMap.remove(node.getTask().getId());  //добавил
+        nodeMap.remove(node.getTask().getId());
     }
 
     private void removeNode(Node node) {
@@ -54,19 +54,16 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (node.next == null && node.prev != null) {
             //хвост
             tail = node.prev;
-            node.prev.next = null;  // proverka
-           // nodeMap.remove(node.getTask().getId());
-
+            node.prev.next = null;
         }
         if (node.prev == null && node.next != null) {
             // голова
             head = node.next;
-            node.next.prev = null;   // proverka
-           // nodeMap.remove(node.getTask().getId());
+            node.next.prev = null;
+
         }
         if (node == tail && node == head) {
-          //  nodeMap.remove(node.getTask().getId());
-            node = null;  // proverka
+            node = null;
         }
     }
 
@@ -115,14 +112,5 @@ public class InMemoryHistoryManager implements HistoryManager {
         public void setNext(Node next) {
             this.next = next;
         }
-
-//        @Override
-//        public String toString() {
-//            return "Node{" +
-//                    "task=" + task +
-//                    ", prev=" + prev +
-//                    ", next=" + next +
-//                    '}';
-//        }
     }
 }
