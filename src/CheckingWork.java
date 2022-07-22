@@ -35,50 +35,13 @@ public class CheckingWork {
         Subtask subtask3 = new Subtask("Закупить запчасти", "Найти ужные запчасти и закупить",2);
         inMemoryTaskManager.creationSubtask(subtask3, epic2.getId());
 
-        System.out.println("Список Задач:");
-        for (Task task : inMemoryTaskManager.getTaskList()) {
-            System.out.println(task.getName());
-        }
-        System.out.println();
 
-        System.out.println("Список Эпиков:");
-        for (Epic epic : inMemoryTaskManager.getEpicList()) {
-            System.out.println(epic.getName());
-        }
-        System.out.println();
-
-        System.out.println("Список Подзадач:");
-        for (Subtask subtask : inMemoryTaskManager.getSubtasksList()) {
-            System.out.println(subtask.getName());
-        }
-        System.out.println();
-        
-
-//   п. 2.3   Получение по идентификатору
         inMemoryTaskManager.getTaskFromId(task1.getId());
         inMemoryTaskManager.getTaskFromId(task2.getId());
+        inMemoryTaskManager.getTaskFromId(task2.getId());
+        inMemoryTaskManager.getTaskFromId(task2.getId());
+        inMemoryTaskManager.getTaskFromId(task2.getId());
         System.out.println("task list = " + inMemoryHistoryManager.getHistory());
-
-
-        inMemoryTaskManager.getSubtaskFromId(subtask1.getId());
-        inMemoryTaskManager.getSubtaskFromId(subtask2.getId());
-        inMemoryTaskManager.getSubtaskFromId(subtask3.getId());
-        System.out.println("task list = " + inMemoryHistoryManager.getHistory());
-
-
-
-        inMemoryTaskManager.getEpicFromId(epic1.getId());
-        inMemoryTaskManager.getEpicFromId(epic2.getId());
-        System.out.println("task list = " + inMemoryHistoryManager.getHistory());
-
-        inMemoryTaskManager.updateSubtask(subtask1, subtask1.getId(), Status.DONE, epic1.getId());
-        inMemoryTaskManager.updateSubtask(subtask2, subtask2.getId(), Status.DONE, epic1.getId());
-
-        inMemoryTaskManager.updateEpic(epic1, epic1.getId());
-        System.out.println(epic1.getName() + "  " + epic1.getDescription()  + "  " +  epic1.getId() + "  " + epic1.getStatus());
-
-        System.out.println("task list = " + inMemoryHistoryManager.getHistory());
-
 
     }
 }

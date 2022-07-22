@@ -22,6 +22,7 @@ public class InMemoryHistoryManager implements HistoryManager {
        final int id = task.getId();
        linkLast(task);
        nodeMap.put(id, tail);
+       remove(id);
     }
 
     private void linkLast(Task task) {
@@ -38,6 +39,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     public void remove(int id) {
         Node node = nodeMap.get(id);
         removeNode(node);
+        nodeMap.remove(node.getTask().getId());  //добавил
     }
 
     private void removeNode(Node node) {
@@ -52,16 +54,19 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (node.next == null && node.prev != null) {
             //хвост
             tail = node.prev;
-            nodeMap.remove(node.getTask().getId());
+            node.prev.next = null;  // proverka
+           // nodeMap.remove(node.getTask().getId());
 
         }
         if (node.prev == null && node.next != null) {
             // голова
             head = node.next;
-            nodeMap.remove(node.getTask().getId());
+            node.next.prev = null;   // proverka
+           // nodeMap.remove(node.getTask().getId());
         }
         if (node == tail && node == head) {
-            nodeMap.remove(node.getTask().getId());
+          //  nodeMap.remove(node.getTask().getId());
+            node = null;  // proverka
         }
     }
 
@@ -111,13 +116,13 @@ public class InMemoryHistoryManager implements HistoryManager {
             this.next = next;
         }
 
-        @Override
-        public String toString() {
-            return "Node{" +
-                    "task=" + task +
-                    ", prev=" + prev +
-                    ", next=" + next +
-                    '}';
-        }
+//        @Override
+//        public String toString() {
+//            return "Node{" +
+//                    "task=" + task +
+//                    ", prev=" + prev +
+//                    ", next=" + next +
+//                    '}';
+//        }
     }
 }

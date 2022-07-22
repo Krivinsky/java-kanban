@@ -15,4 +15,14 @@ public class Subtask extends Task {
     public int getIdEpic() {
         return idEpic;
     }
+
+    @Override
+    public String toString() {
+        return "Subtask{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", id=" + id +
+                ", status=" + status +
+                '}';
+    }
 }

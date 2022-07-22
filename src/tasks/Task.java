@@ -47,11 +47,11 @@ public class Task {
 
     @Override
     public  String toString(){
-        return  "Task{" +
+        return  "\nTask{" +
                 "name=" + name +
                 ", description=" + description + ", " +
                 "id=" + id +
-                ", stusus=" + status + '}';
+                ", status=" + status + '}';
     }
 }
 
