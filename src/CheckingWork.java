@@ -40,6 +40,25 @@ public class CheckingWork {
         inMemoryTaskManager.getTaskFromId(task2.getId());
         inMemoryTaskManager.getTaskFromId(task2.getId());
         inMemoryTaskManager.getTaskFromId(task2.getId());
+        inMemoryTaskManager.getTaskFromId(task2.getId());
+
+        inMemoryTaskManager.getEpicFromId(epic1.getId());
+        inMemoryTaskManager.getEpicFromId(epic2.getId());
+
+        inMemoryTaskManager.getSubtaskFromId(subtask1.getId());
+        inMemoryTaskManager.getSubtaskFromId(subtask2.getId());
+        inMemoryTaskManager.getSubtaskFromId(subtask3.getId());
+
+        inMemoryTaskManager.getSubtaskFromId(subtask3.getId());
+        inMemoryTaskManager.getSubtaskFromId(subtask2.getId());
+        inMemoryTaskManager.getSubtaskFromId(subtask1.getId());
+
+        inMemoryTaskManager.getEpicFromId(epic2.getId());
+        inMemoryTaskManager.getEpicFromId(epic1.getId());
+
+        inMemoryTaskManager.getTaskFromId(task2.getId());
+        inMemoryTaskManager.getTaskFromId(task1.getId());
+
         System.out.println("task list = " + inMemoryHistoryManager.getHistory());
 
     }

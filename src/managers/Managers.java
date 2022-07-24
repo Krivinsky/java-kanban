@@ -1,6 +1,5 @@
 package managers;
 
-
 public class Managers {
 
     public static final HistoryManager historyManager = new InMemoryHistoryManager();
@@ -14,6 +13,4 @@ public class Managers {
     public static TaskManager getDefault(){
         return taskManager;
     }
-
-
 }
