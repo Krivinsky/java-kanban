@@ -16,7 +16,6 @@ public class InMemoryTaskManager implements TaskManager {
     HashMap<Integer, Subtask> subtaskMap = new HashMap<>();    //хранить подзадачи
     HashMap<Integer, Epic> epicMap = new HashMap<>();  // хранить эпики
 
-
     HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
 
     public  int generateId(){
@@ -110,23 +109,28 @@ public class InMemoryTaskManager implements TaskManager {
         epicMap.put(id, epic);
     }
 
-    public void deleteTaskOfId(int id){    //Удаление задачи по идентификатору
-        taskMap.remove(id);
-        inMemoryHistoryManager.remove(id);
-    }
-    public void deleteSubtaskOfId(int id){    //Удаление подзадачи по идентификатору
-        subtaskMap.remove(id);
-        for (Epic value : epicMap.values()) {
-            value.getSubtasksId().remove(id);
+    public void deleteTaskOfId(int id) {    //Удаление задачи по идентификатору
+        if (0 <= id || id  <= generateId) {
+            taskMap.remove(id);
+            inMemoryHistoryManager.remove(id);
         }
     }
-    public void deleteEpicOfId(int id){    //Удаление эпика по идентификатору
-        for (Integer integer : epicMap.get(id).getSubtasksId()) {
-            subtaskMap.remove(integer);
+    public void deleteSubtaskOfId(int id) {    //Удаление подзадачи по идентификатору
+        if ( id <= subtaskMap.size()) {
+            subtaskMap.remove(id);
+            for (Epic value : epicMap.values()) {
+                value.getSubtasksId().remove(id);
+            }
         }
-        epicMap.remove(id);
     }
-
+    public void deleteEpicOfId(int id) {    //Удаление эпика по идентификатору
+        if (epicMap.get(id) != null) {
+            for (Integer integer : epicMap.get(id).getSubtasksId()) {
+                subtaskMap.remove(integer);
+            }
+            epicMap.remove(id);
+        }
+    }
 /*
 *   Из технического задания спринт 3:
 *   3. Дополнительные методы:

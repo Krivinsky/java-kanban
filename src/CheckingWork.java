@@ -23,6 +23,8 @@ public class CheckingWork {
         Epic epic1 = new Epic("Ремонт в квартире", "Ремонт в своей квартире");
         inMemoryTaskManager.creationEpic(epic1);
 
+        inMemoryTaskManager.creationEpic(epic1); // проходит проверку
+
         Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить обои, клей, валики",1);
         inMemoryTaskManager.creationSubtask(subtask1, epic1.getId());
 
@@ -60,6 +62,5 @@ public class CheckingWork {
         inMemoryTaskManager.getTaskFromId(task1.getId());
 
         System.out.println("task list = " + inMemoryHistoryManager.getHistory());
-
     }
 }
