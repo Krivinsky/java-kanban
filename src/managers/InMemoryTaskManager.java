@@ -22,6 +22,8 @@ public class InMemoryTaskManager implements TaskManager {
         return ++generateId;
     }
 
+    //todo
+
     public ArrayList<Task> getTaskList(){  //Получение списка задач
         return new ArrayList<>(taskMap.values());
     }
