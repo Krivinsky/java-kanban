@@ -7,10 +7,12 @@ public class Task {
     protected String description;  //Описание, в котором раскрываются детали.
     protected int id;   //УИН задачи todo сделать не изменяемой
     protected Status status;  //Статус, отображающий её прогресс. ("NEW", "IN_PROGRESS", "DONE")
+    protected Type type;
 
-    public Task(String name, String description){
+    public Task(String name, String description, Type type){
         this.name = name;
         this.description = description;
+        this.type = type;
     }
 
     public String getName() {

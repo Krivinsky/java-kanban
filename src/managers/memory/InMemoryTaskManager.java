@@ -1,5 +1,8 @@
-package managers;
+package managers.memory;
 
+import managers.HistoryManager;
+import managers.Managers;
+import managers.TaskManager;
 import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
@@ -10,15 +13,15 @@ import java.util.HashMap;
 
 public class InMemoryTaskManager implements TaskManager {
 
-    private int generateId = 0;
+    protected int generateId = 0;
 
-    HashMap<Integer, Task> taskMap = new HashMap<>();  //хранить задачи
-    HashMap<Integer, Subtask> subtaskMap = new HashMap<>();    //хранить подзадачи
-    HashMap<Integer, Epic> epicMap = new HashMap<>();  // хранить эпики
+    protected HashMap<Integer, Task> taskMap = new HashMap<>();  //хранить задачи
+    protected HashMap<Integer, Subtask> subtaskMap = new HashMap<>();    //хранить подзадачи
+    protected HashMap<Integer, Epic> epicMap = new HashMap<>();  // хранить эпики
 
-    HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
+    protected HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
 
-    public  int generateId(){
+    protected int generateId(){
         return ++generateId;
     }
 
@@ -57,11 +60,12 @@ public class InMemoryTaskManager implements TaskManager {
         return epicMap.get(id);
     }
 
-    public Task creationTask(Task task){   //Создание task
+    public int creationTask(Task task){   //Создание task
         task.setId(generateId());
         task.setStatus(Status.NEW);
         taskMap.put(task.getId(), task);
-        return task;
+
+        return task.getId();
     }
     public Subtask creationSubtask(Subtask subtask, int epicId){   //Создание subtask.
         subtask.setId(generateId());

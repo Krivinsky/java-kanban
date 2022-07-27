@@ -21,7 +21,7 @@ public interface TaskManager {
     Task getSubtaskFromId(int id);
     Task getEpicFromId(int id);
 
-    Task creationTask(Task task);
+    int creationTask(Task task);
     Subtask creationSubtask(Subtask subtask, int idEpic);
     Epic creationEpic(Epic epic);
 

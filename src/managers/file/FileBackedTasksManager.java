@@ -1,12 +1,18 @@
-package managers;
+package managers.file;
 
+import managers.TaskManager;
+import managers.memory.InMemoryTaskManager;
 import tasks.Epic;
 import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FileBackedTasksManager extends InMemoryTaskManager implements TaskManager {
 
@@ -18,6 +24,44 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
 
     public void save() {   //сохранять: Все задачи, подзадачи, эпики и историю просмотра любых задач.
         String heading = "id,type,name,status,description,epic";  // заголовок таблицы
+
+        CSVFormatter.toString(this.inMemoryHistoryManager);
+    }
+
+    public static FileBackedTasksManager loadFromFile(File file) throws FileNotFoundException{
+        final FileBackedTasksManager tasksManager = new FileBackedTasksManager();
+        int generatedId = 0;
+
+        try {
+            String csv = Files.readString(file.toPath());
+            String[] lines = csv.split(System.lineSeparator());
+            //читаемпервую строку
+            for (int i = 1; i < lines.length; i++) {
+                String line = lines[i];
+
+                if (line.isEmpty()) {
+                    line = lines[i+1];
+                    List<Integer> hystory = CSVFormatter.hystoryFromString(line);
+                    break;
+                }
+
+                //прочитать задачи
+                Task task = CSVFormatter.taskFromString(lines[i]);
+                tasksManager.creationTask(task);
+                int id = task.getId();
+                if (id > generatedId) {
+                    generatedId = id;
+                }
+                //прочитать эпики
+                //прочитать сабтаски
+
+
+            }
+        } catch (IOException e) {
+            throw new FileNotFoundException("Не могу прочитать файл");
+        }
+        tasksManager.generateId = generatedId;
+        return  tasksManager;
     }
 
     @Override
@@ -66,10 +110,10 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
     }
 
     @Override
-    public Task creationTask(Task task) {
-        super.creationTask(task);
+    public int creationTask(Task task) {
+        Integer id = super.creationTask(task);
         save();
-        return task;
+        return id;
     }
 
     @Override
