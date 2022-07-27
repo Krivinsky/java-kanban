@@ -5,7 +5,7 @@ public class Task {
 
     protected String name;    //Название, кратко описывающее суть задачи
     protected String description;  //Описание, в котором раскрываются детали.
-    protected int id;   //УИН задачи
+    protected int id;   //УИН задачи todo сделать не изменяемой
     protected Status status;  //Статус, отображающий её прогресс. ("NEW", "IN_PROGRESS", "DONE")
 
     public Task(String name, String description){
