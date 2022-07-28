@@ -6,7 +6,7 @@ import tasks.Task;
 import java.util.List;
 
 public class CSVFormatter {
-    public static List<Integer> hystoryFromString(String value) {  //восстановления менеджера истории из CSV
+    public static List<Integer> historyFromString(String value) {  //восстановления менеджера истории из CSV
 
         return null;
     }

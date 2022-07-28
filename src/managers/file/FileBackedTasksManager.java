@@ -16,16 +16,11 @@ import java.util.List;
 
 public class FileBackedTasksManager extends InMemoryTaskManager implements TaskManager {
 
-    File file = new File("file.csv");
-
-    FileBackedTasksManager(File file) {
-        this.file = file;
-    }
-
     public void save() {   //сохранять: Все задачи, подзадачи, эпики и историю просмотра любых задач.
         String heading = "id,type,name,status,description,epic";  // заголовок таблицы
 
         CSVFormatter.toString(this.inMemoryHistoryManager);
+
     }
 
     public static FileBackedTasksManager loadFromFile(File file) throws FileNotFoundException{
@@ -41,7 +36,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
 
                 if (line.isEmpty()) {
                     line = lines[i+1];
-                    List<Integer> hystory = CSVFormatter.hystoryFromString(line);
+                    List<Integer> hystory = CSVFormatter.historyFromString(line);
                     break;
                 }
 
