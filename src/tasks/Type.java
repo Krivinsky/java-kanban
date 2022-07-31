@@ -1,7 +1,7 @@
 package tasks;
 
 public enum Type {
-    TASK ("TASK"), EPIC(""), SUBTASK("");
+    TASK ("TASK"), EPIC("EPIC"), SUBTASK("SUBTASK");
 
     final String name;
 
@@ -13,4 +13,6 @@ public enum Type {
     public String toString() {
         return name;
     }
+
+
 }

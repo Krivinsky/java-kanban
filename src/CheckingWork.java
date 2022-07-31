@@ -13,7 +13,6 @@ public class CheckingWork {
         Task task1 = new Task("Забрать посылку","Сходить на почту и забрать посылку", Type.TASK);
         inMemoryTaskManager.creationTask(task1);
 
-
         Task task2 = new Task("Заменить масло", "Заменить моторное масло в машине", Type.TASK);
         inMemoryTaskManager.creationTask(task2);
 

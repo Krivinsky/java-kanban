@@ -1,11 +1,10 @@
 package tasks;
 
-
 public class Task {
 
     protected String name;    //Название, кратко описывающее суть задачи
-    protected String description;  //Описание, в котором раскрываются детали.
-    protected int id;   //УИН задачи todo сделать не изменяемой
+    protected String description;  //Описание, в котором раскрываются детали
+    protected int id;   //УИН задачи
     protected Status status;  //Статус, отображающий её прогресс. ("NEW", "IN_PROGRESS", "DONE")
     protected Type type;
 
@@ -49,11 +48,7 @@ public class Task {
 
     @Override
     public  String toString(){
-        return  "\nTask{" +
-                "name=" + name +
-                ", description=" + description + ", " +
-                "id=" + id +
-                ", status=" + status + '}';
+        return  id + "," + type.toString() + "," + name + "," + status.toString() + "," + description;
     }
 }
 
