@@ -69,11 +69,6 @@ public class CSVFormatter {
         return String.join(",", ids);
     }
 
-    static String historyToString(HistoryManager manager) {
-        //todo этот метод
-        return null;
-    }
-
     public static Type typeFromString (String string) {
         switch (string) {
             case "TASK":

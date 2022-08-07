@@ -13,13 +13,13 @@ import java.util.HashMap;
 
 public class InMemoryTaskManager implements TaskManager {
 
-    protected static int generateId = 0;                                                                                //добавил static
+    protected static int generateId = 0;
 
     protected HashMap<Integer, Task> taskMap = new HashMap<>();  //хранить задачи
     protected HashMap<Integer, Subtask> subtaskMap = new HashMap<>();    //хранить подзадачи
     protected HashMap<Integer, Epic> epicMap = new HashMap<>();  // хранить эпики
 
-    protected HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
+    public HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
 
     public static int generateId() {                                                                                    //добавил статик
         return ++generateId;
@@ -36,12 +36,22 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     public void cleanTaskList() {    //Удаление всех задач
+        for (Task task: taskMap.values()) {
+            this.inMemoryHistoryManager.remove(task.getId());
+        }
         taskMap.clear();
     }
     public void cleanSubtaskList(){    //Удаление всех подзадач
+        for (Subtask subtask:subtaskMap.values()){
+            this.inMemoryHistoryManager.remove(subtask.getId());
+        }
         subtaskMap.clear();
     }
     public void cleanEpicList(){    //Удаление всех эпиков
+        cleanSubtaskList();
+        for (Epic epic: epicMap.values()) {
+            this.inMemoryHistoryManager.remove(epic.getId());
+        }
         epicMap.clear();
     }
 
@@ -84,19 +94,22 @@ public class InMemoryTaskManager implements TaskManager {
         return epic;
     }
 
-    public void updateTask(Task task, int id, Status status){  //Обновление даных задачи
-        task.setStatus(status);
-        taskMap.put(id, task);
+    public void updateTask(Task task, int id, Status status){  //Обновление данных задачи
+        if (task != null) {
+            task.setStatus(status);
+            taskMap.put(id, task);
+        }
     }
-    public void updateSubtask(Subtask subtask, int idSubtask, Status status, int idEpic){  //Обновление даных подзадачи
-        subtask.setStatus(status);
-        subtaskMap.put(idSubtask, subtask);
-        subtask.setIdEpic(idEpic);
-        epicMap.get(idEpic).getSubtasksId().add(idSubtask);
-
+    public void updateSubtask(Subtask subtask, int idSubtask, Status status, int idEpic){  //Обновление данных подзадачи
+        if (subtask != null) {
+            subtask.setStatus(status);
+            subtaskMap.put(idSubtask, subtask);
+            subtask.setIdEpic(idEpic);
+            epicMap.get(idEpic).getSubtasksId().add(idSubtask);
+        }
     }
-    public void updateEpic(Epic epic, int id){  //Обновление даных эпика
-        if (checkId(id)) {
+    public void updateEpic(Epic epic, int id){  //Обновление данных эпика
+        if (epic != null) {
             int countNew = 0;
             int countDone = 0;
             if (epic.getSubtasksId().isEmpty()) {

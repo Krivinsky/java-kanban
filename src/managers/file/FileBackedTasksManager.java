@@ -1,6 +1,5 @@
 package managers.file;
 
-import managers.TaskManager;
 import managers.memory.InMemoryTaskManager;
 import tasks.*;
 
@@ -12,7 +11,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileBackedTasksManager extends InMemoryTaskManager implements TaskManager {
+public class FileBackedTasksManager extends InMemoryTaskManager {
 
     public static void main(String[] args) {
         FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager();
@@ -26,7 +25,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
         Epic epic1 = new Epic("Ремонт в квартире", "Ремонт в своей квартире", Type.EPIC);
         fileBackedTasksManager.creationEpic(epic1);
 
-        Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить стройматриалы",1, Type.SUBTASK);
+        Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить стройматериалы",1, Type.SUBTASK);
         fileBackedTasksManager.creationSubtask(subtask1, epic1.getId());
 
         Subtask subtask2 = new Subtask("Нанять рабочих", "Заключить договор",1, Type.SUBTASK);
@@ -35,13 +34,17 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
         Epic epic2 = new Epic("Ремонт машины", "Ремонт Ниссан", Type.EPIC);
         fileBackedTasksManager.creationEpic(epic2);
 
-        Subtask subtask3 = new Subtask("Закупить запчасти", "Найти ужные запчасти",2, Type.SUBTASK);
+        Subtask subtask3 = new Subtask("Закупить запчасти", "Найти нужные запчасти",2, Type.SUBTASK);
         fileBackedTasksManager.creationSubtask(subtask3, epic2.getId());
 
         fileBackedTasksManager.getTaskFromId(task2.getId());
         fileBackedTasksManager.getTaskFromId(task1.getId());
         fileBackedTasksManager.getEpicFromId(epic2.getId());
         fileBackedTasksManager.getEpicFromId(epic1.getId());
+
+        //fileBackedTasksManager.cleanTaskList(); // проверка на удаление всех задач
+        //fileBackedTasksManager.cleanEpicList();     // проверка на удаление всех эпиков
+        //fileBackedTasksManager.cleanSubtaskList(); // проверка на удаление всех подзадач
     }
                                                 //сохранять текущее состояние менеджера в указанный файл.
     public void save() throws ManagerSaveException {     //сохранять: Все задачи, подзадачи, эпики и историю просмотра любых задач.

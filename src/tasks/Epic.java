@@ -13,9 +13,4 @@ public class Epic extends Task {
     public ArrayList<Integer> getSubtasksId() {
         return subtasksId;
     }
-
-    @Override
-    public String toString() {
-        return id + "," + type.toString() + "," + name + "," + status.toString() + "," + description;
-    }
 }

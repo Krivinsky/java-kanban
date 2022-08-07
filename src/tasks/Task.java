@@ -12,6 +12,7 @@ public class Task {
         this.name = name;
         this.description = description;
         this.type = type;
+
     }
 
     public String getName() {
