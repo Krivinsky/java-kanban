@@ -100,12 +100,13 @@ public class InMemoryTaskManager implements TaskManager {
             taskMap.put(id, task);
         }
     }
-    public void updateSubtask(Subtask subtask, int idSubtask, Status status, int idEpic){  //Обновление данных подзадачи
+    public void updateSubtask(Subtask subtask, Status status, int idEpic){  //Обновление данных подзадачи
         if (subtask != null) {
             subtask.setStatus(status);
-            subtaskMap.put(idSubtask, subtask);
+            //subtaskMap.put(idSubtask, subtask);
+            subtaskMap.put(subtask.getId(),subtask);
             subtask.setIdEpic(idEpic);
-            epicMap.get(idEpic).getSubtasksId().add(idSubtask);
+            epicMap.get(idEpic).getSubtasksId().add(subtask.getId());
         }
     }
     public void updateEpic(Epic epic, int id){  //Обновление данных эпика
