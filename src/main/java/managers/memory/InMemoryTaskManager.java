@@ -84,7 +84,7 @@ public class InMemoryTaskManager implements TaskManager {
         subtask.setId(generateId());
         subtask.setStatus(Status.NEW);
         subtaskMap.put(subtask.getId(), subtask);
-        epicMap.get(epicId).getSubtasksId().add(subtask.getId());
+        epicMap.get(epicId).addSubtasksId(subtask.getId());
         return subtask;
     }
     public Epic creationEpic(Epic epic){   //Создание epic.
@@ -102,11 +102,13 @@ public class InMemoryTaskManager implements TaskManager {
     }
     public void updateSubtask(Subtask subtask, Status status, int idEpic){  //Обновление данных подзадачи
         if (subtask != null) {
+            int id = subtask.getId();
             subtask.setStatus(status);
-            //subtaskMap.put(idSubtask, subtask);
-            subtaskMap.put(subtask.getId(),subtask);
+            subtaskMap.put(id, subtask);
             subtask.setIdEpic(idEpic);
-            epicMap.get(idEpic).getSubtasksId().add(subtask.getId());
+            epicMap.get(idEpic).getSubtasksId().add(id);
+            updateEpic(epicMap.get(idEpic), idEpic);
+
         }
     }
     public void updateEpic(Epic epic, int id){  //Обновление данных эпика

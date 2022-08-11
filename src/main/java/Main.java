@@ -7,11 +7,11 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-      //  CheckingWork checkingWork = new CheckingWork();
-      //  checkingWork.check();
+        CheckingWork checkingWork = new CheckingWork();
+        checkingWork.check();
 
-        File file = new File("csv/file.csv");
-        FileBackedTasksManager.loadFromFile(file);
+      //  File file = new File("csv/file.csv");
+      //  FileBackedTasksManager.loadFromFile(file);
 
     }
 }
