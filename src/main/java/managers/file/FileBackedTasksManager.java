@@ -42,11 +42,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         fileBackedTasksManager.getEpicFromId(epic2.getId());
         fileBackedTasksManager.getEpicFromId(epic1.getId());
 
-        //fileBackedTasksManager.cleanTaskList(); // проверка на удаление всех задач
-        //fileBackedTasksManager.cleanEpicList();     // проверка на удаление всех эпиков
-        //fileBackedTasksManager.cleanSubtaskList(); // проверка на удаление всех подзадач
     }
-                                                //сохранять текущее состояние менеджера в указанный файл.
+                                                            //сохранять текущее состояние менеджера в указанный файл.
     public void save() throws ManagerSaveException {     //сохранять: Все задачи, подзадачи, эпики и историю просмотра любых задач.
         File file = new File ("csv/file.csv");
         try {

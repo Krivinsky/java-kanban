@@ -19,6 +19,8 @@ public class InMemoryTaskManager implements TaskManager {
     protected HashMap<Integer, Subtask> subtaskMap = new HashMap<>();    //хранить подзадачи
     protected HashMap<Integer, Epic> epicMap = new HashMap<>();  // хранить эпики
 
+    protected HashMap<Integer, Task> AllTypesOfTasksMap = new HashMap<>(); //хранит все типы задач
+
     public HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
 
     public static int generateId() {                                                                                    //добавил статик
@@ -33,6 +35,13 @@ public class InMemoryTaskManager implements TaskManager {
     }
     public ArrayList<Epic> getEpicList(){  //Получение списка эпиков
         return new ArrayList<>(epicMap.values());
+    }
+
+    @Override
+    public ArrayList<Task> getAllTypesOfTasks() {
+        ArrayList<Task> list = new ArrayList<>();
+
+        return null;
     }
 
     public void cleanTaskList() {    //Удаление всех задач
@@ -55,6 +64,11 @@ public class InMemoryTaskManager implements TaskManager {
         epicMap.clear();
     }
 
+    @Override
+    public void cleanAllTypesOfTasksList() {
+
+    }
+
     public Task getTaskFromId(int id) {    //Получение задачи по идентификатор
         if (checkId(id)) {
             inMemoryHistoryManager.addTask(taskMap.get(id));
@@ -72,6 +86,11 @@ public class InMemoryTaskManager implements TaskManager {
             inMemoryHistoryManager.addTask(epicMap.get(id));
         }
         return epicMap.get(id);
+    }
+
+    @Override
+    public Task getAllTypesOfTasks(int id) {
+        return null;
     }
 
     public Task creationTask(Task task){   //Создание task
@@ -92,6 +111,11 @@ public class InMemoryTaskManager implements TaskManager {
         epic.setStatus(Status.NEW);
         epicMap.put(epic.getId(), epic);
         return epic;
+    }
+
+    @Override
+    public Task creationAllTypesOfTasks() {
+        return null;
     }
 
     public void updateTask(Task task, int id, Status status){  //Обновление данных задачи
@@ -136,6 +160,11 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
+    @Override
+    public void updateAllTypesOfTasks() {
+
+    }
+
     public void deleteTaskOfId(int id) {    //Удаление задачи по идентификатору
         if (checkId(id)) {
             taskMap.remove(id);
@@ -158,7 +187,13 @@ public class InMemoryTaskManager implements TaskManager {
             epicMap.remove(id);
         }
     }
-/*
+
+    @Override
+    public void deleteAllTypesOfTasks() {
+
+    }
+
+    /*
 *   Из технического задания спринт 3:
 *   3. Дополнительные методы:
 *      3.1 Получение списка всех подзадач определённого эпика.

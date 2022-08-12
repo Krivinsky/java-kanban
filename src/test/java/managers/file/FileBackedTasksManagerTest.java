@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
-
+class FileBackedTasksManagerTest /*extends TaskManagerTest <FileBackedTaskmanager> */{
+  //  T taskManager;
     @Test
     void main() {
     }

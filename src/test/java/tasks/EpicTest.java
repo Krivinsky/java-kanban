@@ -1,9 +1,7 @@
 package tasks;
 import managers.*;
 import org.junit.jupiter.api.BeforeEach;
-import tasks.*;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import java.util.ArrayList;
@@ -13,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class EpicTest {
     static Epic epic;
     static TaskManager inMemoryTaskManager = Managers.taskManager;
+
     @BeforeEach
     public void beforeEach() {
         epic = new Epic("Epic name", "Epic description", Type.EPIC);
@@ -55,14 +54,16 @@ class EpicTest {
     }
 
     @Test
-    public void shouldBeStatusNewWhenSubtaskDoneAndNew() {
+    public void shouldBeStatusIN_PROGRESSWhenSubtaskDoneAndNew() {
         Subtask subtask1 = new Subtask("sb name1", "sb1 description", epic.getId(), Type.SUBTASK);
         inMemoryTaskManager.creationSubtask(subtask1, epic.getId());
+
         Subtask subtask2 = new Subtask("sb name2", "sb2 description", epic.getId(), Type.SUBTASK);
         inMemoryTaskManager.creationSubtask(subtask2, epic.getId());
+
         inMemoryTaskManager.updateSubtask(subtask1, Status.DONE, subtask1.getIdEpic());
 
-        assertEquals(Status.NEW, epic.getStatus(), "Подзадачи со статусами NEW и DONE - не пройден");
+        assertEquals(Status.IN_PROGRESS, epic.getStatus(), "Подзадачи со статусами NEW и DONE - не пройден");
 
     }
 
