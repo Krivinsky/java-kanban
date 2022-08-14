@@ -15,6 +15,8 @@ public interface TaskManager {
 
     ArrayList<Task> getAllTypesOfTasks();
 
+    void getPrioritizedTasks();
+
     void cleanTaskList();
     void cleanSubtaskList();
     void cleanEpicList();
@@ -33,9 +35,9 @@ public interface TaskManager {
 
     Task creationAllTypesOfTasks();
 
-    void updateTask(Task task, int id, Status status);
+    void updateTask(Task task, Status status);
     void updateSubtask(Subtask subtask, Status status, int idEpic);
-    void updateEpic(Epic epic, int id);
+    void updateEpic(Epic epic);
 
     void updateAllTypesOfTasks();
 

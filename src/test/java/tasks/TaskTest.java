@@ -2,9 +2,10 @@ package tasks;
 
 import managers.TaskManager;
 import managers.memory.InMemoryTaskManager;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,9 +16,8 @@ class TaskTest {
 
     @BeforeEach
     public void BeforeEach() {
-        task = new Task("Task name", "Task description", Type.TASK);
-        taskManager.creationTask(task);
-    }
+        task = new Task(1, "Task name", "Task description", Type.TASK, Status.NEW, LocalDateTime.of(2022,9,1,10,00), 90);
+       }
 
     @Test
     void getNameTest() {
@@ -36,8 +36,8 @@ class TaskTest {
 
     @Test
     void setIdTest() {
-        task.setId(1);
-        assertEquals(1, task.getId(), "setIdTest - не пройден");
+        task.setId(2);
+        assertEquals(2, task.getId(), "setIdTest - не пройден");
     }
 
     @Test
@@ -67,6 +67,6 @@ class TaskTest {
     @Test
     void testToStringTest() {
         task.setId(1);
-        assertEquals("1,TASK,Task name,NEW,Task description", task.toString(), "testToStringTest- не пройден");
+        assertEquals("1,TASK,Task name,NEW,Task description,01_09_2022|10:00,90", task.toString(), "testToStringTest- не пройден");
     }
 }

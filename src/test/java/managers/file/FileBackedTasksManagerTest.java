@@ -1,12 +1,26 @@
 package managers.file;
 
-import managers.TaskManager;
+import managers.TaskManagerTest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import tasks.Task;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
-class FileBackedTasksManagerTest /*extends TaskManagerTest <FileBackedTaskmanager> */{
-  //  T taskManager;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
+    File file;
+    @BeforeEach
+    void setUp() {
+      file = new File ("csv/file.csv");
+      taskManager = new FileBackedTasksManager();
+      taskManagerSetUp();
+    }
+
     @Test
     void main() {
     }
@@ -16,82 +30,14 @@ class FileBackedTasksManagerTest /*extends TaskManagerTest <FileBackedTaskmanage
     }
 
     @Test
-    void loadFromFile() {
+    public void loadFromFileTest() throws FileNotFoundException {
+        taskManager.getTaskFromId(task.getId());
+        FileBackedTasksManager fileBackedTasksManager = FileBackedTasksManager.loadFromFile(file);
+
+        ArrayList<Task> list = fileBackedTasksManager.getTaskList();
+        assertNotNull(list,"лист не null");
+        assertEquals(task, list.get(0), "loadFromFileTest - не пройден");
     }
 
-    @Test
-    void getTaskList() {
-    }
 
-    @Test
-    void getSubtasksList() {
-    }
-
-    @Test
-    void getEpicList() {
-    }
-
-    @Test
-    void cleanTaskList() {
-    }
-
-    @Test
-    void cleanSubtaskList() {
-    }
-
-    @Test
-    void cleanEpicList() {
-    }
-
-    @Test
-    void getTaskFromId() {
-    }
-
-    @Test
-    void getSubtaskFromId() {
-    }
-
-    @Test
-    void getEpicFromId() {
-    }
-
-    @Test
-    void creationTask() {
-    }
-
-    @Test
-    void creationSubtask() {
-    }
-
-    @Test
-    void creationEpic() {
-    }
-
-    @Test
-    void updateTask() {
-    }
-
-    @Test
-    void updateSubtask() {
-    }
-
-    @Test
-    void updateEpic() {
-    }
-
-    @Test
-    void deleteTaskOfId() {
-    }
-
-    @Test
-    void deleteSubtaskOfId() {
-    }
-
-    @Test
-    void deleteEpicOfId() {
-    }
-
-    @Test
-    void getEpicSubtasksList() {
-    }
 }

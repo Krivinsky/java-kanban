@@ -5,36 +5,39 @@ import managers.memory.InMemoryTaskManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SubtaskTest {
-    Subtask subtask;
+
     Epic epic;
-    TaskManager taskManager = new InMemoryTaskManager();
+    Subtask subtask;
+    InMemoryTaskManager taskManager;
 
     @BeforeEach
-    public void BeforeEach() {
-        epic = new Epic("Epic name", "Epic description", Type.EPIC);
-        taskManager.creationEpic(epic);
-        subtask = new Subtask("Subtask name", "Subtask description",1, Type.SUBTASK);
-        taskManager.creationSubtask(subtask, 1);
+    public void add() {
+        taskManager = new InMemoryTaskManager();
+        epic = new Epic(1,"Epic name", "Epic description", Type.EPIC, Status.NEW, LocalDateTime.of(2022,9,1,10,00), 90);
+        subtask = new Subtask(2,"Subtask name", "Subtask description",epic.getId(), Type.SUBTASK, Status.NEW, LocalDateTime.of(2022,9,1,10,00), 90);
+
     }
 
     @Test
     void setIdEpicTest() {
-        subtask.setIdEpic(2);
-        assertEquals(2, subtask.getIdEpic(), "setIdEpicTest -  - не пройден");
+        subtask.setIdEpic(1);
+        assertEquals(1, subtask.getIdEpic(), "setIdEpicTest -  - не пройден");
     }
 
     @Test
     void getIdEpicTest() {
-        subtask.setIdEpic(2);
-        assertEquals(2, subtask.getIdEpic(), "getIdEpicTest -  - не пройден");
+        subtask.setIdEpic(1);
+        assertEquals(1, subtask.getIdEpic(), "getIdEpicTest -  - не пройден");
     }
 
     @Test
     void testToString() {
-        subtask.setId(1);
-        assertEquals("1,SUBTASK,Subtask name,NEW,Subtask description,1",subtask.toString());
+        assertEquals("2,SUBTASK,Subtask name,NEW,Subtask description,01_09_2022|10:00,90,1"  ,subtask.toString());
     }
 }

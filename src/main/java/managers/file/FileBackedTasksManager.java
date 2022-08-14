@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,39 +16,32 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     public static void main(String[] args) {
         FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager();
-
-        Task task1 = new Task("Забрать посылку","Сходить на почту и забрать посылку", Type.TASK);
+        Task task1 = new Task("Забрать посылку","Сходить на почту и забрать посылку", Type.TASK, LocalDateTime.of(2022,9,1,10, 0), 90);
         fileBackedTasksManager.creationTask(task1);
-
-        Task task2 = new Task("Заменить масло", "Заменить моторное масло в машине", Type.TASK);
+        Task task2 = new Task("Заменить масло", "Заменить моторное масло в машине", Type.TASK, LocalDateTime.of(2022,9,2,10, 0), 90);
         fileBackedTasksManager.creationTask(task2);
-
-        Epic epic1 = new Epic("Ремонт в квартире", "Ремонт в своей квартире", Type.EPIC);
+        Epic epic1 = new Epic("Ремонт в квартире", "Ремонт в своей квартире", Type.EPIC, LocalDateTime.of(2022,9,2,10, 0), 90);
         fileBackedTasksManager.creationEpic(epic1);
-
-        Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить стройматериалы",1, Type.SUBTASK);
+        Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить стройматериалы",1, Type.SUBTASK, LocalDateTime.of(2022,9,3,10,00), 90);
         fileBackedTasksManager.creationSubtask(subtask1, epic1.getId());
-
-        Subtask subtask2 = new Subtask("Нанять рабочих", "Заключить договор",1, Type.SUBTASK);
+        Subtask subtask2 = new Subtask("Нанять рабочих", "Заключить договор",1, Type.SUBTASK, LocalDateTime.of(2022,9,4,10, 0), 90);
         fileBackedTasksManager.creationSubtask(subtask2, epic1.getId());
-
-        Epic epic2 = new Epic("Ремонт машины", "Ремонт Ниссан", Type.EPIC);
+        Epic epic2 = new Epic("Ремонт машины", "Ремонт Ниссан", Type.EPIC, LocalDateTime.of(2022,9,2,10, 0), 90);
         fileBackedTasksManager.creationEpic(epic2);
-
-        Subtask subtask3 = new Subtask("Закупить запчасти", "Найти нужные запчасти",2, Type.SUBTASK);
+        Subtask subtask3 = new Subtask("Закупить запчасти", "Найти нужные запчасти",2, Type.SUBTASK, LocalDateTime.of(2022,9,5,10, 0), 90);
         fileBackedTasksManager.creationSubtask(subtask3, epic2.getId());
-
         fileBackedTasksManager.getTaskFromId(task2.getId());
         fileBackedTasksManager.getTaskFromId(task1.getId());
         fileBackedTasksManager.getEpicFromId(epic2.getId());
         fileBackedTasksManager.getEpicFromId(epic1.getId());
-
     }
+
+
                                                             //сохранять текущее состояние менеджера в указанный файл.
     public void save() throws ManagerSaveException {     //сохранять: Все задачи, подзадачи, эпики и историю просмотра любых задач.
         File file = new File ("csv/file.csv");
         try {
-            String heading = "id,type,name,status,description,epic" + System.lineSeparator();  // заголовок таблицы
+            String heading = "id,type,name,status,description,startTime,duration,endTime,epic, " + System.lineSeparator();  // заголовок таблицы
             FileWriter fr = new FileWriter(file);
             fr.write(heading);
 
@@ -113,17 +107,17 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     @Override
     public ArrayList<Task> getTaskList() {
-        return null;
+        return super.getTaskList();
     }
 
     @Override
     public ArrayList<Subtask> getSubtasksList() {
-        return null;
+        return super.getSubtasksList();
     }
 
     @Override
     public ArrayList<Epic> getEpicList() {
-        return null;
+        return super.getEpicList();
     }
 
     @Override
@@ -201,14 +195,17 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public Subtask creationSubtask(Subtask subtask, int idEpic) {
-        super.creationSubtask(subtask, idEpic);
-        try {
-            save();
-        } catch (ManagerSaveException e) {
-            e.printStackTrace();
+    public Subtask creationSubtask(Subtask subtask, int epicId) {
+        if (subtask != null && super.checkId(epicId)) {
+            super.creationSubtask(subtask, epicId);
+            try {
+                save();
+            } catch (ManagerSaveException e) {
+                e.printStackTrace();
+            }
+            return subtask;
         }
-        return subtask;
+        return null;
     }
 
     @Override
@@ -223,8 +220,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void updateTask(Task task, int id, Status status) {
-        super.updateTask(task, id, status);
+    public void updateTask(Task task, Status status) {
+        super.updateTask(task, status);
         try {
             save();
         } catch (ManagerSaveException e) {
@@ -243,8 +240,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void updateEpic(Epic epic, int id) {
-        super.updateEpic(epic, id);
+    public void updateEpic(Epic epic) {
+        super.updateEpic(epic);
         try {
             save();
         } catch (ManagerSaveException e) {
