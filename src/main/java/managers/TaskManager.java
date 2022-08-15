@@ -7,6 +7,7 @@ import tasks.Task;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface TaskManager {
     ArrayList<Task> getTaskList();
@@ -15,7 +16,7 @@ public interface TaskManager {
 
     ArrayList<Task> getAllTypesOfTasks();
 
-    void getPrioritizedTasks();
+    ArrayList<Task> getPrioritizedTasks();
 
     void cleanTaskList();
     void cleanSubtaskList();

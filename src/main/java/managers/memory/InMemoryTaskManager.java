@@ -8,8 +8,11 @@ import tasks.Subtask;
 import tasks.Task;
 import tasks.Status;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.TreeSet;
 
 public class InMemoryTaskManager implements TaskManager {
 
@@ -18,6 +21,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected HashMap<Integer, Task> taskMap = new HashMap<>();  //хранить задачи
     protected HashMap<Integer, Subtask> subtaskMap = new HashMap<>();    //хранить подзадачи
     protected HashMap<Integer, Epic> epicMap = new HashMap<>();  // хранить эпики
+    protected TreeSet<Task> prioritizedTasks = new TreeSet<>(Comparator.comparing(Task::getStartTime));
 
     protected HashMap<Integer, Task> AllTypesOfTasksMap = new HashMap<>(); //хранит все типы задач
 
@@ -44,8 +48,17 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void getPrioritizedTasks() {
-        //todo этот метод
+    public ArrayList<Task> getPrioritizedTasks() {
+        return new ArrayList<>(prioritizedTasks);
+    }
+
+    public void validate(Task task) {
+        if (prioritizedTasks.isEmpty()) {
+            return;
+        }
+        for (Task taskValidate: prioritizedTasks) {
+
+        }
     }
 
     public void cleanTaskList() {    //Удаление всех задач
@@ -104,7 +117,9 @@ public class InMemoryTaskManager implements TaskManager {
         if (task != null) {
             task.setId(generateId());
             task.setStatus(Status.NEW);
+            //validation
             taskMap.put(task.getId(), task);
+            prioritizedTasks.add(task);
             return task;
         }
         return null;
@@ -113,8 +128,11 @@ public class InMemoryTaskManager implements TaskManager {
         if (subtask != null && checkId(epicId)) {
             subtask.setId(generateId());
             subtask.setStatus(Status.NEW);
+            //validation
             subtaskMap.put(subtask.getId(), subtask);
             epicMap.get(epicId).addSubtasksId(subtask.getId());
+            updateEpicDurationAndStarTime(epicMap.get(epicId));   // ---------?????
+            prioritizedTasks.add(subtask);
             return subtask;
         }
         return null;
@@ -123,6 +141,8 @@ public class InMemoryTaskManager implements TaskManager {
         if (epic != null) {
             epic.setId(generateId());
             epic.setStatus(Status.NEW);
+            updateEpicDurationAndStarTime(epic);
+            //validation -- ??
             epicMap.put(epic.getId(), epic);
             return epic;
         }
@@ -148,6 +168,7 @@ public class InMemoryTaskManager implements TaskManager {
             subtask.setIdEpic(idEpic);
   //          epicMap.get(idEpic).getSubtasksId().add(id);
             updateEpic(epicMap.get(idEpic));
+            updateEpicDurationAndStarTime(epicMap.get(idEpic));
         }
     }
     public void updateEpic(Epic epic){  //Обновление данных эпика
@@ -175,8 +196,32 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
-    public void updateEpicDuration(Epic epic) {
+    public void updateEpicDurationAndStarTime(Epic epic) {
         //todo продолжительность Эпика
+        LocalDateTime startEpic = LocalDateTime.MAX;
+        LocalDateTime endEpic = LocalDateTime.MIN;
+        long durationEpic = 0L;
+        ArrayList<Integer> subtasksId = epic.getSubtasksId();
+        if (subtasksId.isEmpty()) {
+            epic.setDuration(0L);
+            return;
+        }
+
+        for (int i : subtasksId) {
+            Subtask subtask = subtaskMap.get(i);
+            LocalDateTime startTime = subtask.getStartTime();
+            LocalDateTime endTime = subtask.getEndTime();
+            if (startTime.isBefore(startEpic)) {
+                startEpic = startTime;
+            }
+            if (endEpic.isAfter(endTime)) {
+                endEpic = endTime;
+            }
+            durationEpic = durationEpic + subtask.getDuration();
+        }
+        epic.setStartTime(startEpic);
+        epic.setEndTime(endEpic);
+        epic.setDuration(durationEpic);
     }
 
     @Override
@@ -212,11 +257,11 @@ public class InMemoryTaskManager implements TaskManager {
 
     }
 
-    /*
+/*
 *   Из технического задания спринт 3:
 *   3. Дополнительные методы:
 *      3.1 Получение списка всех подзадач определённого эпика.
-* */
+ */
     public ArrayList<Subtask> getEpicSubtasksList(Epic epic){  //Получение списка всех подзадач определённого эпика
         if (epic != null) {
             ArrayList<Subtask> subtasksList = new ArrayList<>();

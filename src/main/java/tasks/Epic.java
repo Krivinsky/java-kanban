@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Epic extends Task {
-    Duration duration; //todo  time
-    LocalDateTime startTime; //todo  time
+    protected long duration; //todo  time
+    protected LocalDateTime startTime; //todo  time
     protected ArrayList<Integer> subtasksId = new ArrayList<>();
 
     public Epic(int id, String name, String description, Type type, Status status, LocalDateTime startTime, long duration) {
@@ -34,5 +34,13 @@ public class Epic extends Task {
                 iterator.remove();
             }
         }
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 }
