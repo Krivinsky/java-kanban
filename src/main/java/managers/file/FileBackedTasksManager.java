@@ -1,5 +1,6 @@
 package managers.file;
 
+import exeptions.ManagerSaveException;
 import managers.memory.InMemoryTaskManager;
 import tasks.*;
 
@@ -20,13 +21,13 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         fileBackedTasksManager.creationTask(task1);
         Task task2 = new Task("Заменить масло", "Заменить моторное масло в машине", Type.TASK, LocalDateTime.of(2022,9,2,10, 0), 90);
         fileBackedTasksManager.creationTask(task2);
-        Epic epic1 = new Epic("Ремонт в квартире", "Ремонт в своей квартире", Type.EPIC, LocalDateTime.of(2022,9,2,10, 0), 90);
+        Epic epic1 = new Epic("Ремонт в квартире", "Ремонт в своей квартире", Type.EPIC);
         fileBackedTasksManager.creationEpic(epic1);
         Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить стройматериалы",1, Type.SUBTASK, LocalDateTime.of(2022,9,3,10,00), 90);
         fileBackedTasksManager.creationSubtask(subtask1, epic1.getId());
         Subtask subtask2 = new Subtask("Нанять рабочих", "Заключить договор",1, Type.SUBTASK, LocalDateTime.of(2022,9,4,10, 0), 90);
         fileBackedTasksManager.creationSubtask(subtask2, epic1.getId());
-        Epic epic2 = new Epic("Ремонт машины", "Ремонт Ниссан", Type.EPIC, LocalDateTime.of(2022,9,2,10, 0), 90);
+        Epic epic2 = new Epic("Ремонт машины", "Ремонт Ниссан", Type.EPIC);
         fileBackedTasksManager.creationEpic(epic2);
         Subtask subtask3 = new Subtask("Закупить запчасти", "Найти нужные запчасти",2, Type.SUBTASK, LocalDateTime.of(2022,9,5,10, 0), 90);
         fileBackedTasksManager.creationSubtask(subtask3, epic2.getId());
@@ -97,11 +98,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             throw new FileNotFoundException("Не могу прочитать файл");
         }
         //вывод только для проверки работы
-        System.out.println(tasksManager.inMemoryHistoryManager.getHistory());
-        System.out.println(tasksManager.taskMap);
-        System.out.println(tasksManager.subtaskMap);
-        System.out.println(tasksManager.epicMap);
-        System.out.println(history);
+//        System.out.println(tasksManager.inMemoryHistoryManager.getHistory());
+//        System.out.println(tasksManager.taskMap);
+//        System.out.println(tasksManager.subtaskMap);
+//        System.out.println(tasksManager.epicMap);
+//        System.out.println(history);
         return tasksManager;
     }
 

@@ -1,4 +1,4 @@
-package managers.file;
+package exeptions;
 
 public class ManagerSaveException extends Exception {
     public ManagerSaveException (final String message) {

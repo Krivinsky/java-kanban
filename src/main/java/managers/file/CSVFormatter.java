@@ -49,7 +49,7 @@ public class CSVFormatter {
         long duration = Long.parseLong(lines[6]);
         LocalDateTime endTime = LocalDateTime.parse(lines[7], outputFormatter);
 
-        Epic epic = new Epic(name, description, type, startTime, duration);
+        Epic epic = new Epic(name, description, type);
         epic.setId(id);
         epic.setStatus(status);
         epic.setEndTime(endTime);

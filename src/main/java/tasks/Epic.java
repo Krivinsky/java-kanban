@@ -6,16 +6,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Epic extends Task {
-    protected long duration; //todo  time
-    protected LocalDateTime startTime; //todo  time
     protected ArrayList<Integer> subtasksId = new ArrayList<>();
 
     public Epic(int id, String name, String description, Type type, Status status, LocalDateTime startTime, long duration) {
         super(id, name, description, type, status, startTime, duration);
     }
 
-    public Epic(String name, String description, Type type, LocalDateTime startTime, long duration) {
-        super(name, description, type, startTime, duration);
+    public Epic(String name, String description, Type type) {
+        super(name, description, type);
     }
 
     public ArrayList<Integer> getSubtasksId() {

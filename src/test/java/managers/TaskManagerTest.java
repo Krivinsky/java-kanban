@@ -17,13 +17,13 @@ public abstract class TaskManagerTest <T extends TaskManager>{
 
 
     protected void taskManagerSetUp() {
-        task = new Task(1,"Task name", "Task description", Type.TASK, Status.NEW, LocalDateTime.of(2022,9,1,10,00), 90);
+        task = new Task(1,"Task name", "Task description", Type.TASK, Status.NEW, LocalDateTime.of(2022,9,1,10, 0), 90);
         taskManager.creationTask(task);
 
-        epic = new Epic(2,"Epic name", "Epic description", Type.EPIC, Status.NEW, LocalDateTime.of(2022,9,2,10,00), 90);
+        epic = new Epic(2,"Epic name", "Epic description", Type.EPIC, Status.NEW, LocalDateTime.of(2022,9,2,10, 0), 90);
         taskManager.creationEpic(epic);
 
-        subtask = new Subtask(3,"Subtask name", "Subtask description",epic.getId(), Type.SUBTASK, Status.NEW, LocalDateTime.of(2022,9,3,10,00), 90);
+        subtask = new Subtask(3,"Subtask name", "Subtask description",epic.getId(), Type.SUBTASK, Status.NEW, LocalDateTime.of(2022,9,3,10, 0), 90);
         taskManager.creationSubtask(subtask, epic.getId());
 
     }
@@ -127,7 +127,6 @@ public abstract class TaskManagerTest <T extends TaskManager>{
     @Test
     public void creationTaskTest() {
         assertNotNull(task, "task не null - не пройден");
-        assertTrue(task instanceof Task, "task это Задача - не пройден");
         assertTrue(task.getId() > 0 , "Присвоен некорректный Id");
         assertEquals(Status.NEW, task.getStatus(), "Присвоен некорректный статус");
     }
@@ -140,7 +139,6 @@ public abstract class TaskManagerTest <T extends TaskManager>{
     @Test
     public void creationSubtaskTest() {
         assertNotNull(subtask, "subtask не null - не пройден");
-        assertTrue(subtask instanceof Subtask, "subtask это Подзадача - не пройден");
         assertTrue(subtask.getId() > 0 , "Присвоен некорректный Id");
         assertEquals(Status.NEW, subtask.getStatus(), "Присвоен некорректный статус");
 
@@ -159,7 +157,6 @@ public abstract class TaskManagerTest <T extends TaskManager>{
     @Test
     public void creationEpicTest() {
         assertNotNull(epic, "epic не null - не пройден");
-        assertTrue(epic instanceof Epic, "epic это Эпик - не пройден");
         assertTrue(epic.getId() > 0 , "Присвоен некорректный Id");
         assertEquals(Status.NEW, epic.getStatus(), "Присвоен некорректный статус");
     }
@@ -210,7 +207,7 @@ public abstract class TaskManagerTest <T extends TaskManager>{
 
     @Test
     public void updateEpicTestWhenAllSubtaskDONE() {
-        Subtask subtask2 = new Subtask("Subtask2 name", "Subtask2 description",epic.getId(), Type.SUBTASK);
+        Subtask subtask2 = new Subtask("Subtask2 name", "Subtask2 description",epic.getId(), Type.SUBTASK, LocalDateTime.of(2022,9,3,10, 0), 90);
         taskManager.creationSubtask(subtask2, epic.getId());
         taskManager.updateSubtask(subtask, Status.DONE, epic.getId());
         taskManager.updateSubtask(subtask2, Status.DONE, epic.getId());
@@ -219,7 +216,7 @@ public abstract class TaskManagerTest <T extends TaskManager>{
 
     @Test
     public void updateEpicTestWhenSubtaskDONEAndNEW() {
-        Subtask subtask2 = new Subtask("Subtask2 name", "Subtask2 description",epic.getId(), Type.SUBTASK);
+        Subtask subtask2 = new Subtask("Subtask2 name", "Subtask2 description",epic.getId(), Type.SUBTASK, LocalDateTime.of(2022,9,4,10, 0), 90);
         taskManager.creationSubtask(subtask2, epic.getId());
         taskManager.updateSubtask(subtask2, Status.DONE, epic.getId());
         assertEquals(Status.IN_PROGRESS, epic.getStatus(), "updateEpicTestWhenSubtaskDONEAndNEW - не пройден");

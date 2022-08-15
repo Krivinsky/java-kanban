@@ -30,7 +30,7 @@ class HistoryManagerTest {
         task = new Task("Task name", "Task description", Type.TASK);
         inMemoryTaskManager.creationTask(task);
 
-        epic = new Epic("Epic name", "Epic description", Type.EPIC, LocalDateTime.of(2022,9,1,10, 0), 90);
+        epic = new Epic("Epic name", "Epic description", Type.EPIC);
         inMemoryTaskManager.creationEpic(epic);
 
         subtask = new Subtask("Subtask name", "Subtask description",epic.getId(), Type.SUBTASK);

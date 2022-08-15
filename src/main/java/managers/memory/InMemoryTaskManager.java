@@ -1,5 +1,6 @@
 package managers.memory;
 
+import exeptions.ValidationExeption;
 import managers.HistoryManager;
 import managers.Managers;
 import managers.TaskManager;
@@ -52,12 +53,22 @@ public class InMemoryTaskManager implements TaskManager {
         return new ArrayList<>(prioritizedTasks);
     }
 
-    public void validate(Task task) {
+    public void validate(Task task) throws ValidationExeption {
+        LocalDateTime startTimeInput = task.getStartTime();
+        LocalDateTime endTimeInput = task.getEndTime();
         if (prioritizedTasks.isEmpty()) {
             return;
         }
-        for (Task taskValidate: prioritizedTasks) {
-
+        for (Task taskOld: prioritizedTasks) {
+            if(startTimeInput.isBefore(taskOld.getStartTime()) && endTimeInput.isAfter(taskOld.getEndTime())) {
+                throw new ValidationExeption("Задача не может начинаться раньше и заканчиваться позже чем другие задачи");
+            }
+            if (endTimeInput.isAfter(taskOld.getStartTime())) {
+                throw new ValidationExeption("Задача не может заканчиваться позже начала другой задачи");
+            }
+            if (startTimeInput.isAfter(taskOld.getEndTime())) {
+                throw new ValidationExeption("Задача не может начинаться раньше конца другой задачи");
+            }
         }
     }
 
@@ -83,7 +94,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void cleanAllTypesOfTasksList() {
-
     }
 
     public Task getTaskFromId(int id) {    //Получение задачи по идентификатор
@@ -117,7 +127,12 @@ public class InMemoryTaskManager implements TaskManager {
         if (task != null) {
             task.setId(generateId());
             task.setStatus(Status.NEW);
-            //validation
+            try {
+                validate(task);
+            } catch (ValidationExeption e) {
+                //throw new RuntimeException(e);
+                return null;
+            }
             taskMap.put(task.getId(), task);
             prioritizedTasks.add(task);
             return task;
@@ -128,7 +143,12 @@ public class InMemoryTaskManager implements TaskManager {
         if (subtask != null && checkId(epicId)) {
             subtask.setId(generateId());
             subtask.setStatus(Status.NEW);
-            //validation
+            try {
+                validate(subtask);
+            } catch (ValidationExeption e) {
+                //throw new RuntimeException(e);
+                //return null;
+            }
             subtaskMap.put(subtask.getId(), subtask);
             epicMap.get(epicId).addSubtasksId(subtask.getId());
             updateEpicDurationAndStarTime(epicMap.get(epicId));   // ---------?????
@@ -196,17 +216,16 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
-    public void updateEpicDurationAndStarTime(Epic epic) {
-        //todo продолжительность Эпика
+    public void updateEpicDurationAndStarTime(Epic epic) {  // продолжительность Эпика
         LocalDateTime startEpic = LocalDateTime.MAX;
         LocalDateTime endEpic = LocalDateTime.MIN;
         long durationEpic = 0L;
         ArrayList<Integer> subtasksId = epic.getSubtasksId();
         if (subtasksId.isEmpty()) {
             epic.setDuration(0L);
+            epic.setStartTime(startEpic);
             return;
         }
-
         for (int i : subtasksId) {
             Subtask subtask = subtaskMap.get(i);
             LocalDateTime startTime = subtask.getStartTime();
