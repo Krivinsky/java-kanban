@@ -20,8 +20,6 @@ public interface TaskManager {
     void cleanSubtaskList();
     void cleanEpicList();
 
-    void cleanAllTypesOfTasksList();
-
     Task getTaskFromId(int id);
     Task getSubtaskFromId(int id);
     Task getEpicFromId(int id);
@@ -29,8 +27,6 @@ public interface TaskManager {
     Task creationTask(Task task);
     Subtask creationSubtask(Subtask subtask, int idEpic);
     Epic creationEpic(Epic epic);
-
-    Task creationAllTypesOfTasks();
 
     void updateTask(Task task, Status status);
     void updateSubtask(Subtask subtask, Status status, int idEpic);

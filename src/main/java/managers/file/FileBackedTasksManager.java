@@ -23,7 +23,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         fileBackedTasksManager.creationTask(task2);
         Epic epic1 = new Epic("Ремонт в квартире", "Ремонт в своей квартире", Type.EPIC);
         fileBackedTasksManager.creationEpic(epic1);
-        Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить стройматериалы",1, Type.SUBTASK, LocalDateTime.of(2022,9,3,10,00), 90);
+        Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить стройматериалы",1, Type.SUBTASK, LocalDateTime.of(2022,9,3,10, 0), 90);
         fileBackedTasksManager.creationSubtask(subtask1, epic1.getId());
         Subtask subtask2 = new Subtask("Нанять рабочих", "Заключить договор",1, Type.SUBTASK, LocalDateTime.of(2022,9,4,10, 0), 90);
         fileBackedTasksManager.creationSubtask(subtask2, epic1.getId());

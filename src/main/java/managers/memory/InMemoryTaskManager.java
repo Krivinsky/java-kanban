@@ -1,6 +1,6 @@
 package managers.memory;
 
-import exeptions.ValidationExeption;
+import exeptions.ValidationException;
 import managers.HistoryManager;
 import managers.Managers;
 import managers.TaskManager;
@@ -24,8 +24,6 @@ public class InMemoryTaskManager implements TaskManager {
     protected HashMap<Integer, Epic> epicMap = new HashMap<>();  // хранить эпики
     protected TreeSet<Task> prioritizedTasks = new TreeSet<>(Comparator.comparing(Task::getStartTime));
 
-    protected HashMap<Integer, Task> AllTypesOfTasksMap = new HashMap<>(); //хранит все типы задач
-
     public HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
 
     public static int generateId() {                                                                                    //добавил статик
@@ -47,7 +45,7 @@ public class InMemoryTaskManager implements TaskManager {
         return new ArrayList<>(prioritizedTasks);
     }
 
-    public void validate(Task task) throws ValidationExeption {
+    public void validate(Task task) throws ValidationException {
         LocalDateTime startTimeInput = task.getStartTime();
         LocalDateTime endTimeInput = task.getEndTime();
         if (prioritizedTasks.isEmpty()) {
@@ -55,13 +53,13 @@ public class InMemoryTaskManager implements TaskManager {
         }
         for (Task taskOld: prioritizedTasks) {
             if(startTimeInput.isBefore(taskOld.getStartTime()) && endTimeInput.isAfter(taskOld.getEndTime())) {
-                throw new ValidationExeption("Задача не может начинаться раньше и заканчиваться позже чем другие задачи");
+                throw new ValidationException("Задача не может начинаться раньше и заканчиваться позже чем другие задачи");
             }
-            if (endTimeInput.isAfter(taskOld.getStartTime())) {
-                throw new ValidationExeption("Задача не может заканчиваться позже начала другой задачи");
+            if (endTimeInput.isBefore(taskOld.getStartTime())) {
+                throw new ValidationException("Задача не может заканчиваться позже начала другой задачи");
             }
-            if (startTimeInput.isAfter(taskOld.getEndTime())) {
-                throw new ValidationExeption("Задача не может начинаться раньше конца другой задачи");
+            if (startTimeInput.isBefore(taskOld.getEndTime())) {
+                throw new ValidationException("Задача не может начинаться раньше конца другой задачи");
             }
         }
     }
@@ -84,10 +82,6 @@ public class InMemoryTaskManager implements TaskManager {
             this.inMemoryHistoryManager.remove(epic.getId());
         }
         epicMap.clear();
-    }
-
-    @Override
-    public void cleanAllTypesOfTasksList() {
     }
 
     public Task getTaskFromId(int id) {    //Получение задачи по идентификатор
@@ -118,8 +112,7 @@ public class InMemoryTaskManager implements TaskManager {
             task.setStatus(Status.NEW);
             try {
                 validate(task);
-            } catch (ValidationExeption e) {
-                //throw new RuntimeException(e);
+            } catch (ValidationException e) {
                 return null;
             }
             taskMap.put(task.getId(), task);
@@ -134,13 +127,12 @@ public class InMemoryTaskManager implements TaskManager {
             subtask.setStatus(Status.NEW);
             try {
                 validate(subtask);
-            } catch (ValidationExeption e) {
-                //throw new RuntimeException(e);
-                //return null;
+            } catch (ValidationException e) {
+                return null;
             }
             subtaskMap.put(subtask.getId(), subtask);
             epicMap.get(epicId).addSubtasksId(subtask.getId());
-            updateEpicDurationAndStarTime(epicMap.get(epicId));   // ---------?????
+            updateEpicDurationAndStarTime(epicMap.get(epicId));
             prioritizedTasks.add(subtask);
             return subtask;
         }
@@ -151,22 +143,20 @@ public class InMemoryTaskManager implements TaskManager {
             epic.setId(generateId());
             epic.setStatus(Status.NEW);
             updateEpicDurationAndStarTime(epic);
-            //validation -- ??
-            prioritizedTasks.add(epic);
             epicMap.put(epic.getId(), epic);
             return epic;
         }
         return null;
     }
 
-    @Override
-    public Task creationAllTypesOfTasks() {
-        return null;
-    }
-
     public void updateTask(Task task, Status status){  //Обновление данных задачи
         if (task != null) {
             task.setStatus(status);
+            try {
+                validate(task);
+            } catch (ValidationException e) {
+                return;
+            }
             taskMap.put(task.getId(), task);
         }
     }
@@ -174,6 +164,11 @@ public class InMemoryTaskManager implements TaskManager {
         if (subtask != null) {
             int id = subtask.getId();
             subtask.setStatus(status);
+            try {
+                validate(subtask);
+            } catch (ValidationException e) {
+                return;
+            }
             subtaskMap.put(id, subtask);
             subtask.setIdEpic(idEpic);
   //          epicMap.get(idEpic).getSubtasksId().add(id);

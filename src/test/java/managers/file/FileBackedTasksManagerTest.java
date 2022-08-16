@@ -1,7 +1,9 @@
 package managers.file;
 
+import exeptions.ManagerSaveException;
 import managers.TaskManagerTest;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tasks.Task;
 
@@ -9,8 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
     File file;
@@ -26,7 +27,8 @@ class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager>
     }
 
     @Test
-    void save() {
+    void saveTest()  {
+        //работа метода проверяется в loadFromFileTest
     }
 
     @Test
@@ -44,6 +46,16 @@ class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager>
         assertEquals(task.getEndTime(), list.get(0).getEndTime(), "loadFromFileTest - не пройден");
 
     }
-
+    @Disabled
+    @Test
+    void ManagerSaveExceptionTest() {
+        final ManagerSaveException ex = assertThrows(
+                ManagerSaveException.class,
+                () -> {
+                    FileBackedTasksManager fbt = new FileBackedTasksManager();
+                    fbt.save();
+                });
+        assertEquals("", ex.getMessage());
+    }
 
 }
