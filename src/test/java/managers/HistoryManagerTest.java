@@ -27,13 +27,13 @@ class HistoryManagerTest {
         historyManager = new InMemoryHistoryManager();
         inMemoryTaskManager = new InMemoryTaskManager();
 
-        task = new Task("Task name", "Task description", Type.TASK);
+        task = new Task("Task name", "Task description", Type.TASK, LocalDateTime.of(2022,9,1,10, 0), 90);
         inMemoryTaskManager.creationTask(task);
 
         epic = new Epic("Epic name", "Epic description", Type.EPIC);
         inMemoryTaskManager.creationEpic(epic);
 
-        subtask = new Subtask("Subtask name", "Subtask description",epic.getId(), Type.SUBTASK);
+        subtask = new Subtask("Subtask name", "Subtask description",epic.getId(), Type.SUBTASK, LocalDateTime.of(2022,9,2,10, 0), 90);
         inMemoryTaskManager.creationSubtask(subtask, epic.getId());
     }
 

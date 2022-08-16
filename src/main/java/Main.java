@@ -62,5 +62,10 @@ public class Main {
         }
         System.out.println();
 
+        ArrayList<Task> listP = inMemoryTaskManager.getPrioritizedTasks();
+        for (Task task: listP) {
+            System.out.println(task);
+        }
+
     }
 }

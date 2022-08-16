@@ -43,12 +43,6 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Task> getAllTypesOfTasks() {
-        ArrayList<Task> list = new ArrayList<>();
-        return null;
-    }
-
-    @Override
     public ArrayList<Task> getPrioritizedTasks() {
         return new ArrayList<>(prioritizedTasks);
     }
@@ -118,11 +112,6 @@ public class InMemoryTaskManager implements TaskManager {
         return null;
     }
 
-    @Override
-    public Task getAllTypesOfTasks(int id) {
-        return null;
-    }
-
     public Task creationTask(Task task){   //Создание task
         if (task != null) {
             task.setId(generateId());
@@ -163,6 +152,7 @@ public class InMemoryTaskManager implements TaskManager {
             epic.setStatus(Status.NEW);
             updateEpicDurationAndStarTime(epic);
             //validation -- ??
+            prioritizedTasks.add(epic);
             epicMap.put(epic.getId(), epic);
             return epic;
         }
@@ -243,11 +233,6 @@ public class InMemoryTaskManager implements TaskManager {
         epic.setDuration(durationEpic);
     }
 
-    @Override
-    public void updateAllTypesOfTasks() {
-
-    }
-
     public void deleteTaskOfId(int id) {    //Удаление задачи по идентификатору
         if (checkId(id)) {
             taskMap.remove(id);
@@ -269,11 +254,6 @@ public class InMemoryTaskManager implements TaskManager {
             }
             epicMap.remove(id);
         }
-    }
-
-    @Override
-    public void deleteAllTypesOfTasks() {
-
     }
 
 /*
