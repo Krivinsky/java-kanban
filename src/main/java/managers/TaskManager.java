@@ -14,7 +14,7 @@ public interface TaskManager {
     ArrayList<Subtask> getSubtasksList();
     ArrayList<Epic> getEpicList();
 
-    ArrayList<Task> getPrioritizedTasks();
+    ArrayList<Task> getPrioritizedTasks(); //возвращает список задач по времени старта
 
     void cleanTaskList();
     void cleanSubtaskList();

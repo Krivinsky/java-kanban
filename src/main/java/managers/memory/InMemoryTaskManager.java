@@ -41,7 +41,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Task> getPrioritizedTasks() {
+    public ArrayList<Task> getPrioritizedTasks() {  //возвращает список задач по времени старта
         return new ArrayList<>(prioritizedTasks);
     }
 
@@ -52,6 +52,9 @@ public class InMemoryTaskManager implements TaskManager {
             return;
         }
         for (Task taskOld: prioritizedTasks) {
+            if (taskOld.equals(task)) {
+                break;
+            }
             if(startTimeInput.isBefore(taskOld.getStartTime()) && endTimeInput.isAfter(taskOld.getEndTime())) {
                 throw new ValidationException("Задача не может начинаться раньше и заканчиваться позже чем другие задачи");
             }
@@ -144,6 +147,7 @@ public class InMemoryTaskManager implements TaskManager {
             epic.setStatus(Status.NEW);
             updateEpicDurationAndStarTime(epic);
             epicMap.put(epic.getId(), epic);
+    //        prioritizedTasks.add(epic);
             return epic;
         }
         return null;
@@ -171,7 +175,6 @@ public class InMemoryTaskManager implements TaskManager {
             }
             subtaskMap.put(id, subtask);
             subtask.setIdEpic(idEpic);
-  //          epicMap.get(idEpic).getSubtasksId().add(id);
             updateEpic(epicMap.get(idEpic));
             updateEpicDurationAndStarTime(epicMap.get(idEpic));
         }

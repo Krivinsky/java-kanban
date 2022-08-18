@@ -52,7 +52,9 @@ public class CSVFormatter {
         Epic epic = new Epic(name, description, type);
         epic.setId(id);
         epic.setStatus(status);
+        epic.setStartTime(startTime);
         epic.setEndTime(endTime);
+        epic.setDuration(duration);
         return epic;
     }
 

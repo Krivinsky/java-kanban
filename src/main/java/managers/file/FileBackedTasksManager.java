@@ -98,11 +98,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             throw new FileNotFoundException("Не могу прочитать файл");
         }
         //вывод только для проверки работы
-//        System.out.println(tasksManager.inMemoryHistoryManager.getHistory());
-//        System.out.println(tasksManager.taskMap);
-//        System.out.println(tasksManager.subtaskMap);
-//        System.out.println(tasksManager.epicMap);
-//        System.out.println(history);
+        System.out.println(tasksManager.inMemoryHistoryManager.getHistory());
+        System.out.println(tasksManager.taskMap);
+        System.out.println(tasksManager.subtaskMap);
+        System.out.println(tasksManager.epicMap);
+        System.out.println(history);
         return tasksManager;
     }
 
@@ -222,7 +222,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     @Override
     public void updateTask(Task task, Status status) {
-        super.updateTask(task, status);
+        super.updateTask(task, status);     // валидация реализована в InMemoryTaskManager
         try {
             save();
         } catch (ManagerSaveException e) {

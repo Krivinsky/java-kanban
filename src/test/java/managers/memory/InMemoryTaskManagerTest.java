@@ -5,13 +5,14 @@ import managers.TaskManagerTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tasks.Status;
+import tasks.Subtask;
 import tasks.Task;
 import tasks.Type;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
 
@@ -22,22 +23,33 @@ class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
     }
     @Test
     void generateId() {
+        int i = InMemoryTaskManager.generateId;
+        InMemoryTaskManager.generateId();
+        assertEquals(i+1, InMemoryTaskManager.generateId);
     }
 
     @Test
     void deleteTaskOfId() {
+        taskManager.deleteTaskOfId(task.getId());
+        assertNull(taskManager.getTaskFromId(task.getId()));
     }
 
     @Test
     void deleteSubtaskOfId() {
+        taskManager.deleteSubtaskOfId(subtask.getId());
+        assertNull(taskManager.getSubtaskFromId(subtask.getId()));
     }
 
     @Test
     void deleteEpicOfId() {
+        taskManager.deleteEpicOfId(epic.getId());
+        assertNull(taskManager.getEpicFromId(epic.getId()));
     }
 
     @Test
     void getEpicSubtasksList() {
+        ArrayList<Subtask> list = taskManager.getEpicSubtasksList(epic);
+        assertEquals(subtask, list.get(0));
     }
 
     @Test
@@ -62,7 +74,7 @@ class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
         final ValidationException ex = assertThrows(
                 ValidationException.class,
                 () -> {
-                    Task task1 = new Task(1,"Task name", "Task description", Type.TASK, Status.NEW, LocalDateTime.of(2022,9,1,9, 0), 600);
+                    Task task1 = new Task(2,"Task name2", "Task description2", Type.TASK, Status.NEW, LocalDateTime.of(2022,9,1,9, 0), 600);
                     taskManager.validate(task1);
                 });
         assertEquals("Задача не может начинаться раньше и заканчиваться позже чем другие задачи", ex.getMessage());
