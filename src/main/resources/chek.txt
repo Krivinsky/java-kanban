@@ -1,18 +1,18 @@
-        InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
+InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
         HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
         Task task1 = new Task("Забрать посылку","Сходить на почту и забрать посылку", Type.TASK, LocalDateTime.of(2022,9,1,10, 0), 90);
         inMemoryTaskManager.creationTask(task1);
 
-        Task task2 = new Task("Заменить масло", "Заменить моторное масло в машине", Type.TASK, LocalDateTime.of(2022,9,1,10, 30), 90);
+        Task task2 = new Task("Заменить масло", "Заменить моторное масло в машине", Type.TASK, LocalDateTime.of(2022,9,2,10, 30), 90);
         inMemoryTaskManager.creationTask(task2);
 
         Epic epic1 = new Epic("Ремонт в квартире", "Ремонт в своей квартире", Type.EPIC);
         inMemoryTaskManager.creationEpic(epic1);
 
-        Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить обои-клей-валики", epic1.getId(), Type.SUBTASK, LocalDateTime.of(2022,9,4,10, 0), 90);
+        Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить обои-клей-валики", epic1.getId(), Type.SUBTASK, LocalDateTime.of(2022,9,3,10, 0), 90);
         inMemoryTaskManager.creationSubtask(subtask1, epic1.getId());
 
-        Subtask subtask2 = new Subtask("Нанять рабочих", "Заключить договор и принять работы",epic1.getId(), Type.SUBTASK, LocalDateTime.of(2022,9,1,10, 0), 90);
+        Subtask subtask2 = new Subtask("Нанять рабочих", "Заключить договор и принять работы",epic1.getId(), Type.SUBTASK, LocalDateTime.of(2022,9,4,10, 0), 90);
         inMemoryTaskManager.creationSubtask(subtask2, epic1.getId());
 
         Epic epic2 = new Epic("Ремонт машины", "Ремонт Ниссан", Type.EPIC);
@@ -46,4 +46,3 @@
         for (Task task: listP) {
             System.out.println(task);
         }
-

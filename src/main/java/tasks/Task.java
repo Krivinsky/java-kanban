@@ -11,11 +11,10 @@ public class Task {
     protected int id;   //УИН задачи
     protected Status status;  //Статус, отображающий её прогресс. ("NEW", "IN_PROGRESS", "DONE")
     protected Type type;
-
     protected LocalDateTime startTime;
     protected long duration;
-
     protected LocalDateTime endTime;
+    protected User user;
 
     DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd_MM_yyyy|HH:mm");
 
@@ -72,6 +71,14 @@ public class Task {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

@@ -8,5 +8,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File("csv/file.csv");
         FileBackedTasksManager.loadFromFile(file);
+
+        //new KVServer().start();   //запустить сервер правильно
     }
 }
