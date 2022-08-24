@@ -9,6 +9,7 @@ import managers.UserManager;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.regex.Pattern;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -20,7 +21,7 @@ public class HttpUserServer {
     private UserManager userManager;
     private TaskManager taskManager;
 
-    public HttpUserServer() {
+    public HttpUserServer() throws IOException {
         this(Managers.getDefaultUser());
         }
 
@@ -40,20 +41,44 @@ public class HttpUserServer {
             switch (requestMethod) {
                 case "GET" :  {
 
+                    if(Pattern.matches("^/api/v1/users$", path)) {
+                        final String response = gson.toJson(userManager.getAll());
+                        sendText(exchange, response);
+                        return;
+                    }
+
                     break;
                 }
                 case  "DELETE" : {
+                    if(Pattern.matches("^/api/v1/users\\d+$", path)) {
+                        String idString = path.replaceFirst("/api/v1/users", "");
+                        int id = parsePathId(idString);
+                        if (id != -1) {
+                            userManager.delete(id);
+                            System.out.println("Удалили пользователя с id - " + id);
+                            exchange.sendResponseHeaders(200,0);
+                        }
+                    }
 
                     break;
                 }
                 default:{
                     System.out.println(requestMethod + " - неверный запрос");
+                    exchange.sendResponseHeaders(405, 0);
                 }
             }
         } catch (Exception ex) {
 
         } finally {
             exchange.close();
+        }
+    }
+
+    private int parsePathId(String idString) {
+        try {
+            return Integer.parseInt(idString);
+        } catch (NumberFormatException e) {
+            return -1;
         }
     }
 
