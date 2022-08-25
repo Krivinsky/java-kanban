@@ -84,7 +84,7 @@ public class HttpUserServer {
 
     public void start() {
         System.out.println("Запускаем сервер на порту " + PORT);
-        System.out.println("Открой в браузере http://localhost:" + PORT + "/");
+        System.out.println("Открой в браузере http://localhost:" + PORT + "/"); //todo проверить строку
         server.start();
     }
 
