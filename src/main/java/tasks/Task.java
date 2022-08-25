@@ -10,7 +10,7 @@ public class Task {
     protected String description;  //Описание, в котором раскрываются детали
     protected int id;   //УИН задачи
     protected Status status;  //Статус, отображающий её прогресс. ("NEW", "IN_PROGRESS", "DONE")
-    protected Type type;
+    protected TypeTask typeTask;
     protected LocalDateTime startTime;
     protected long duration;
     protected LocalDateTime endTime;
@@ -18,27 +18,36 @@ public class Task {
 
     DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd_MM_yyyy|HH:mm");
 
-    public Task(int id, String name, String description, Type type, Status status, LocalDateTime startTime, long duration) { //для тестов
+    public Task(int id, String name, String description, TypeTask typeTask, Status status, LocalDateTime startTime, long duration) { //для тестов
         this.id = id;
         this.name = name;
         this.description = description;
-        this.type = type;
+        this.typeTask = typeTask;
         this.status = status;
         this.startTime = startTime;
         this.duration = duration;
        }
 
-    public Task(String name, String description, Type type, LocalDateTime startTime, long duration) {
+    public Task(String name, String description, TypeTask typeTask, LocalDateTime startTime, long duration) {
         this.name = name;
         this.description = description;
-        this.type = type;
+        this.typeTask = typeTask;
         this.startTime = startTime;
         this.duration = duration;
     }
-    public Task(String name, String description, Type type){
+
+    public Task(String name, String description, TypeTask typeTask, LocalDateTime startTime, long duration, User user) {
         this.name = name;
         this.description = description;
-        this.type = type;
+        this.typeTask = typeTask;
+        this.startTime = startTime;
+        this.duration = duration;
+        this.user = user;
+    }
+    public Task(String name, String description, TypeTask typeTask){
+        this.name = name;
+        this.description = description;
+        this.typeTask = typeTask;
     }
 
     public String getName() {
@@ -83,7 +92,7 @@ public class Task {
 
     @Override
     public  String toString(){
-        return  id + "," + type.toString() + "," + name + "," + status.toString()
+        return  id + "," + typeTask.toString() + "," + name + "," + status.toString()
                 + "," + description +  ","
                 + (startTime.format(outputFormatter)) + ","  + duration + "," + (getEndTime().format(outputFormatter)) ;
     }

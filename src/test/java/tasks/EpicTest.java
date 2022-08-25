@@ -17,11 +17,11 @@ class EpicTest {
 
     @BeforeEach
     public void beforeEach() {
-        epic = new Epic("Epic name", "Epic description", Type.EPIC);
+        epic = new Epic("Epic name", "Epic description", TypeTask.EPIC);
         inMemoryTaskManager.creationEpic(epic);
-        subtask1 = new Subtask("sb name1", "sb1 description", epic.getId(), Type.SUBTASK, LocalDateTime.of(2022,9,1,10, 0), 90);
+        subtask1 = new Subtask("sb name1", "sb1 description", epic.getId(), TypeTask.SUBTASK, LocalDateTime.of(2022,9,1,10, 0), 90);
         inMemoryTaskManager.creationSubtask(subtask1, epic.getId());
-        subtask2 = new Subtask("sb name2", "sb2 description", epic.getId(), Type.SUBTASK, LocalDateTime.of(2022,9,2,10, 0), 90);
+        subtask2 = new Subtask("sb name2", "sb2 description", epic.getId(), TypeTask.SUBTASK, LocalDateTime.of(2022,9,2,10, 0), 90);
         inMemoryTaskManager.creationSubtask(subtask2, epic.getId());
     }
 

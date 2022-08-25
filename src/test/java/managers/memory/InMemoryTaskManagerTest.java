@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
-import tasks.Type;
+import tasks.TypeTask;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
     void validateTest() {
         ArrayList<Task> list = new ArrayList<> (taskManager.getPrioritizedTasks());
         assertEquals(2, list.size());
-        Task task1 = new Task(1,"Task name", "Task description", Type.TASK, Status.NEW, LocalDateTime.of(2022,9,1,10, 0), 90);
+        Task task1 = new Task(1,"Task name", "Task description", TypeTask.TASK, Status.NEW, LocalDateTime.of(2022,9,1,10, 0), 90);
         taskManager.creationTask(task1);
         list = new ArrayList<> (taskManager.getPrioritizedTasks());
         assertEquals(2, list.size());
@@ -74,7 +74,7 @@ class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
         final ValidationException ex = assertThrows(
                 ValidationException.class,
                 () -> {
-                    Task task1 = new Task(2,"Task name2", "Task description2", Type.TASK, Status.NEW, LocalDateTime.of(2022,9,1,9, 0), 600);
+                    Task task1 = new Task(2,"Task name2", "Task description2", TypeTask.TASK, Status.NEW, LocalDateTime.of(2022,9,1,9, 0), 600);
                     taskManager.validate(task1);
                 });
         assertEquals("Задача не может начинаться раньше и заканчиваться позже чем другие задачи", ex.getMessage());

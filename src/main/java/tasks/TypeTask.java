@@ -1,11 +1,11 @@
 package tasks;
 
-public enum Type {
+public enum TypeTask {
     TASK ("TASK"), EPIC("EPIC"), SUBTASK("SUBTASK");
 
     final String name;
 
-    Type(String name) {
+    TypeTask(String name) {
         this.name = name;
     }
 

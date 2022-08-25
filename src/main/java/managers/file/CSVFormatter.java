@@ -23,7 +23,7 @@ public class CSVFormatter {
     public static Task taskFromString(String value) {  //метод создания задачи из строки
         String[] lines = value.split(",");
         int id = Integer.parseInt(lines[0]);
-        Type type =  typeFromString(lines[1]);
+        TypeTask typeTask =  typeFromString(lines[1]);
         String name = lines[2];
         Status status = statusFromString(lines[3]);
         String description = lines[4];
@@ -31,7 +31,7 @@ public class CSVFormatter {
         long duration = Long.parseLong(lines[6]);
         LocalDateTime endTime = LocalDateTime.parse(lines[7], outputFormatter);
 
-        Task task = new Task(name, description, type, startTime, duration);
+        Task task = new Task(name, description, typeTask, startTime, duration);
         task.setId(id);
         task.setStatus(status);
         task.setEndTime(endTime);
@@ -41,7 +41,7 @@ public class CSVFormatter {
     public static Epic epicFromString (String value) {
         String[] lines = value.split(",");
         int id = Integer.parseInt(lines[0]);
-        Type type =  typeFromString(lines[1]);
+        TypeTask typeTask =  typeFromString(lines[1]);
         String name = lines[2];
         Status status = statusFromString(lines[3]);
         String description = lines[4];
@@ -49,7 +49,7 @@ public class CSVFormatter {
         long duration = Long.parseLong(lines[6]);
         LocalDateTime endTime = LocalDateTime.parse(lines[7], outputFormatter);
 
-        Epic epic = new Epic(name, description, type);
+        Epic epic = new Epic(name, description, typeTask);
         epic.setId(id);
         epic.setStatus(status);
         epic.setStartTime(startTime);
@@ -61,7 +61,7 @@ public class CSVFormatter {
     public static Subtask subtaskFromString (String value) {
         String[] lines = value.split(",");
         int id = Integer.parseInt(lines[0]);
-        Type type =  typeFromString(lines[1]);
+        TypeTask typeTask =  typeFromString(lines[1]);
         String name = lines[2];
         Status status = statusFromString(lines[3]);
         String description = lines[4];
@@ -70,7 +70,7 @@ public class CSVFormatter {
         LocalDateTime endTime = LocalDateTime.parse(lines[7], outputFormatter);
         int epic =Integer.parseInt(lines[8]);
 
-        Subtask subtask = new Subtask(name, description, epic, type, startTime, duration);
+        Subtask subtask = new Subtask(name, description, epic, typeTask, startTime, duration);
         subtask.setId(id);
         subtask.setStatus(status);
         subtask.setEndTime(endTime);
@@ -87,14 +87,14 @@ public class CSVFormatter {
         return String.join(",", ids);
     }
 
-    public static Type typeFromString (String string) {
+    public static TypeTask typeFromString (String string) {
         switch (string) {
             case "TASK":
-                return Type.TASK;
+                return TypeTask.TASK;
             case "EPIC":
-                return Type.EPIC;
+                return TypeTask.EPIC;
             case "SUBTASK":
-                return Type.SUBTASK;
+                return TypeTask.SUBTASK;
         }
         return null;
     }

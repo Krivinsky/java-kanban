@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
-import tasks.Type;
+import tasks.TypeTask;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,13 +27,13 @@ class HistoryManagerTest {
         historyManager = new InMemoryHistoryManager();
         inMemoryTaskManager = new InMemoryTaskManager();
 
-        task = new Task("Task name", "Task description", Type.TASK, LocalDateTime.of(2022,9,1,10, 0), 90);
+        task = new Task("Task name", "Task description", TypeTask.TASK, LocalDateTime.of(2022,9,1,10, 0), 90);
         inMemoryTaskManager.creationTask(task);
 
-        epic = new Epic("Epic name", "Epic description", Type.EPIC);
+        epic = new Epic("Epic name", "Epic description", TypeTask.EPIC);
         inMemoryTaskManager.creationEpic(epic);
 
-        subtask = new Subtask("Subtask name", "Subtask description",epic.getId(), Type.SUBTASK, LocalDateTime.of(2022,9,2,10, 0), 90);
+        subtask = new Subtask("Subtask name", "Subtask description",epic.getId(), TypeTask.SUBTASK, LocalDateTime.of(2022,9,2,10, 0), 90);
         inMemoryTaskManager.creationSubtask(subtask, epic.getId());
     }
 

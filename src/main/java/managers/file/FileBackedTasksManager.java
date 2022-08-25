@@ -17,19 +17,19 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     public static void main(String[] args) {
         FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager();
-        Task task1 = new Task("Забрать посылку","Сходить на почту и забрать посылку", Type.TASK, LocalDateTime.of(2022,9,1,10, 0), 90);
+        Task task1 = new Task("Забрать посылку","Сходить на почту и забрать посылку", TypeTask.TASK, LocalDateTime.of(2022,9,1,10, 0), 90);
         fileBackedTasksManager.creationTask(task1);
-        Task task2 = new Task("Заменить масло", "Заменить моторное масло в машине", Type.TASK, LocalDateTime.of(2022,9,2,10, 0), 90);
+        Task task2 = new Task("Заменить масло", "Заменить моторное масло в машине", TypeTask.TASK, LocalDateTime.of(2022,9,2,10, 0), 90);
         fileBackedTasksManager.creationTask(task2);
-        Epic epic1 = new Epic("Ремонт в квартире", "Ремонт в своей квартире", Type.EPIC);
+        Epic epic1 = new Epic("Ремонт в квартире", "Ремонт в своей квартире", TypeTask.EPIC);
         fileBackedTasksManager.creationEpic(epic1);
-        Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить стройматериалы",1, Type.SUBTASK, LocalDateTime.of(2022,9,3,10, 0), 90);
+        Subtask subtask1 = new Subtask("Закупить стройматериалы", "Закупить стройматериалы",1, TypeTask.SUBTASK, LocalDateTime.of(2022,9,3,10, 0), 90);
         fileBackedTasksManager.creationSubtask(subtask1, epic1.getId());
-        Subtask subtask2 = new Subtask("Нанять рабочих", "Заключить договор",1, Type.SUBTASK, LocalDateTime.of(2022,9,4,10, 0), 90);
+        Subtask subtask2 = new Subtask("Нанять рабочих", "Заключить договор",1, TypeTask.SUBTASK, LocalDateTime.of(2022,9,4,10, 0), 90);
         fileBackedTasksManager.creationSubtask(subtask2, epic1.getId());
-        Epic epic2 = new Epic("Ремонт машины", "Ремонт Ниссан", Type.EPIC);
+        Epic epic2 = new Epic("Ремонт машины", "Ремонт Ниссан", TypeTask.EPIC);
         fileBackedTasksManager.creationEpic(epic2);
-        Subtask subtask3 = new Subtask("Закупить запчасти", "Найти нужные запчасти",2, Type.SUBTASK, LocalDateTime.of(2022,9,5,10, 0), 90);
+        Subtask subtask3 = new Subtask("Закупить запчасти", "Найти нужные запчасти",2, TypeTask.SUBTASK, LocalDateTime.of(2022,9,5,10, 0), 90);
         fileBackedTasksManager.creationSubtask(subtask3, epic2.getId());
         fileBackedTasksManager.getTaskFromId(task2.getId());
         fileBackedTasksManager.getTaskFromId(task1.getId());

@@ -17,8 +17,8 @@ class SubtaskTest {
     @BeforeEach
     public void add() {
         taskManager = new InMemoryTaskManager();
-        epic = new Epic(1,"Epic name", "Epic description", Type.EPIC, Status.NEW, LocalDateTime.of(2022,9,1,10, 0), 90);
-        subtask = new Subtask(2,"Subtask name", "Subtask description",epic.getId(), Type.SUBTASK, Status.NEW, LocalDateTime.of(2022,9,1,10, 0), 90);
+        epic = new Epic(1,"Epic name", "Epic description", TypeTask.EPIC, Status.NEW, LocalDateTime.of(2022,9,1,10, 0), 90);
+        subtask = new Subtask(2,"Subtask name", "Subtask description",epic.getId(), TypeTask.SUBTASK, Status.NEW, LocalDateTime.of(2022,9,1,10, 0), 90);
 
     }
 

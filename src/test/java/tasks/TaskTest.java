@@ -13,7 +13,7 @@ class TaskTest {
 
     @BeforeEach
     public void BeforeEach() {
-        task = new Task(1, "Task name", "Task description", Type.TASK, Status.NEW, LocalDateTime.of(2022,9,1,10, 0), 90);
+        task = new Task(1, "Task name", "Task description", TypeTask.TASK, Status.NEW, LocalDateTime.of(2022,9,1,10, 0), 90);
        }
 
     @Test
