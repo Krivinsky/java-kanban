@@ -1,0 +1,8 @@
+ISO_LOCAL_DATE_TIME     2011-12-03T10:15:30+01:00'.
+
+HttpTaskServer - сервер, в котором обрабатываются запросы к экземпляру нашего таск менеджера
+KVServer - сервер, который хранит наши данные, вместо файла, как было в FileBeckedTaskManager
+KVTaskClient - клиент служит для передачи данных в KVServer
+Экземпляр FileBackedTaskManager используется пока пишешь эндпоинты и тестируешь их, потом когда будет готов KVTaskClient и KVServer - можно поменять на HTTPTaskManager, либо как Алексей сделал, передавать экземпляр менеджера в конструкторе и иметь возможность работать со всеми видами менеджеров
+
+{"name":"Забрать посылку","description":"Сходить на почту и забрать посылку","id":1,"status":"NEW","typeTask":"TASK","startTime":{"date":{"year":2022,"month":9,"day":1},"time":{"hour":10,"minute":0,"second":0,"nano":0}},"duration":90}
