@@ -32,32 +32,40 @@ public class KVTaskClient {
             }
             return response.body();
         } catch (Exception e) {
-            throw new ManagerSaveException(e); //todo создать свое исключение
+            System.out.println(e);
         }
-
-
-        return null;
+    return "ошибка";
     }
 
-
-    public String put(String key, String json) {
+    public void put(String key, String json) {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url + ))
+                    .uri(URI.create(url+"/save/" + key + "?API_TOKEN=" + apiToken))
+                    .POST(HttpRequest.BodyPublishers.ofString(json))
+                    .build();
+            HttpResponse<String>  response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() != HttpURLConnection.HTTP_OK) {
+                throw new ManagerSaveException("Ошибка" + response.statusCode());
+            }
+        } catch (Exception e) {
         }
-        return null;
     }
 
-    public String load(String key) {
+    public String load(String key)  {   //что должно сюда передаваться? id или "tasks"
         try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url+"/load/" + key + "?API_TOKEN=" + apiToken))
+                    .GET()
+                    .build();
+            HttpResponse<String>  response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() != HttpURLConnection.HTTP_OK) {
+                throw new ManagerSaveException("Ошибка" + response.statusCode());
+            }
+        } catch (Exception e) {
 
-        } catch (IOException e) {
-            throw new ManagerLoadException(e);
         }
-
-
-
         return null;
     }
 }

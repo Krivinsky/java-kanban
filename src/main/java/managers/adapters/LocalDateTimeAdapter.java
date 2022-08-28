@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
 
@@ -16,12 +17,13 @@ public class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
 
         @Override
         public void write(final JsonWriter jsonWriter, final LocalDateTime localDateTime) throws IOException {
-            jsonWriter.value(localDateTime.format(formatterWriter));
+            LocalDateTime value = Objects.nonNull(localDateTime) ? localDateTime : LocalDateTime.now();
+            jsonWriter.value(value.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         }
 
         @Override
         public LocalDateTime read(final JsonReader jsonReader) throws IOException {
-            return LocalDateTime.parse(jsonReader.nextString(), formatterReader);
+            return LocalDateTime.parse(jsonReader.nextString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         }
 
 

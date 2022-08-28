@@ -26,7 +26,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     public HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();
 
-    public static int generateId() {                                                                                    //добавил статик
+    public static int generateId() {    //добавил статик
         return ++generateId;
     }
 

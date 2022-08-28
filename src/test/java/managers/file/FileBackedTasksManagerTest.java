@@ -53,7 +53,7 @@ class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager>
                 ManagerSaveException.class,
                 () -> {
                     FileBackedTasksManager fbt = new FileBackedTasksManager();
-                    fbt.save();
+                    fbt.saveToFile();
                 });
         assertEquals("", ex.getMessage());
     }

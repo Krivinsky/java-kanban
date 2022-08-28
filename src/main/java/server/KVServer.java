@@ -30,7 +30,6 @@ public class KVServer {
 
     private void load(HttpExchange h) throws IOException {
 
-
         try {
             System.out.println("\nload");
             if (!hasAuth(h)) {
@@ -41,11 +40,10 @@ public class KVServer {
             if ("GET".equals(h.getRequestMethod())) {
                 String key = h.getRequestURI().getPath().substring("/load/".length());
                 if (key.isEmpty()) {
-                    System.out.println("Key для сохранения пустой. key указывается в пути: /save/{key}"); //мб /load/ ------
+                    System.out.println("Key для сохранения пустой. key указывается в пути: /load/{key}");
                     h.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
                     return;
                 }
-                //String value = readText(h);   убрать -----
                 if (!data.containsKey(key)) {
                     System.out.println("Не могу получить данные для ключа" + key + "данные отсутствуют");
                     h.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
@@ -61,15 +59,13 @@ public class KVServer {
         } finally {
             h.close();
         }
-
-
     }
 
     private void save(HttpExchange h) throws IOException {
         try {
             System.out.println("\n/save");
             if (!hasAuth(h)) {
-                System.out.println("Запрос неавторизован, нужен параметр в query API_TOKEN со значением апи-ключа");
+                System.out.println("Запрос не авторизован, нужен параметр в query API_TOKEN со значением апи-ключа");
                 h.sendResponseHeaders(HttpURLConnection.HTTP_FORBIDDEN, 0);
                 return;
             }
@@ -117,6 +113,11 @@ public class KVServer {
         System.out.println("Открой в браузере http://localhost:" + PORT + "/");
         System.out.println("API_TOKEN: " + apiToken);
         server.start();
+    }
+
+    public void stop() {
+        server.stop(0);
+        System.out.println("Остановили сервер на порту " + PORT);
     }
 
     private String generateApiToken() {

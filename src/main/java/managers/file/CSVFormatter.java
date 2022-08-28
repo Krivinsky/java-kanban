@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CSVFormatter {
 
-    static DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd_MM_yyyy|HH:mm");
+    static DateTimeFormatter outputFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
     public static List<Integer> historyFromString(String value) {  //восстановления менеджера истории из CSV
         List<Integer> result = new ArrayList<>();
         String[] lines = value.split(",");

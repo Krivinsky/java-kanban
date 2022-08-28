@@ -1,6 +1,3 @@
 id,type,name,status,description,startTime,duration,endTime,epic, 
-117,TASK,Task name,NEW,Task description,01_09_2022|10:00,90,01_09_2022|11:30
-118,EPIC,Epic name,NEW,Epic description,03_09_2022|10:00,90,03_09_2022|11:30
-119,SUBTASK,Subtask name,NEW,Subtask description,03_09_2022|10:00,90,03_09_2022|11:30,118
+1,TASK,Забрать посылку,NEW,Сходить на почту и забрать посылку,2022-09-01T10:00:00,90,2022-09-01T11:30:00
 
-117

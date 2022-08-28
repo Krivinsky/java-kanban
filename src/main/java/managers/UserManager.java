@@ -9,8 +9,6 @@ public interface UserManager {
 
     TaskManager getTaskManager();
 
-
-
     Integer add(User user);
 
     void  update(User user);

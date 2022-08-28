@@ -36,10 +36,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         fileBackedTasksManager.getEpicFromId(epic2.getId());
         fileBackedTasksManager.getEpicFromId(epic1.getId());
     }
-
-
                                                             //сохранять текущее состояние менеджера в указанный файл.
-    public void save() throws ManagerSaveException {     //сохранять: Все задачи, подзадачи, эпики и историю просмотра любых задач.
+    public void saveToFile() throws ManagerSaveException {     //сохранять: Все задачи, подзадачи, эпики и историю просмотра любых задач.
         File file = new File ("csv/file.csv");
         try {
             String heading = "id,type,name,status,description,startTime,duration,endTime,epic, " + System.lineSeparator();  // заголовок таблицы
@@ -125,7 +123,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public void cleanTaskList() {
         super.cleanTaskList();
         try {
-            save();
+            saveToFile();
         } catch (ManagerSaveException e) {
             e.printStackTrace();
         }
@@ -135,7 +133,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public void cleanSubtaskList() {
         super.cleanSubtaskList();
         try {
-            save();
+            saveToFile();
         } catch (ManagerSaveException e) {
             e.printStackTrace();
         }
@@ -145,7 +143,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public void cleanEpicList() {
         super.cleanEpicList();
         try {
-            save();
+            saveToFile();
         } catch (ManagerSaveException e) {
             e.printStackTrace();
         }
@@ -155,7 +153,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public Task getTaskFromId(int id) {
         Task task = super.getTaskFromId(id);
         try {
-            save();
+            saveToFile();
         } catch (ManagerSaveException e) {
             e.printStackTrace();
         }
@@ -166,7 +164,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public Subtask getSubtaskFromId(int id) {
         Subtask subtask = super.getSubtaskFromId(id);
         try {
-            save();
+            saveToFile();
         } catch (ManagerSaveException e) {
             e.printStackTrace();
         }
@@ -177,7 +175,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public Epic getEpicFromId(int id) {
         Epic epic = super.getEpicFromId(id);
         try {
-            save();
+            saveToFile();
         } catch (ManagerSaveException e) {
             e.printStackTrace();
         }
@@ -188,7 +186,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public Task creationTask(Task task) {
         super.creationTask(task);
         try {
-            save();
+            saveToFile();
         } catch (ManagerSaveException e) {
             e.printStackTrace();
         }
@@ -200,7 +198,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         if (subtask != null && super.checkId(epicId)) {
             super.creationSubtask(subtask, epicId);
             try {
-                save();
+                saveToFile();
             } catch (ManagerSaveException e) {
                 e.printStackTrace();
             }
@@ -213,7 +211,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public Epic creationEpic(Epic epic) {
         super.creationEpic(epic);
         try {
-            save();
+            saveToFile();
         } catch (ManagerSaveException e) {
             e.printStackTrace();
         }
@@ -224,7 +222,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public void updateTask(Task task, Status status) {
         super.updateTask(task, status);     // валидация реализована в InMemoryTaskManager
         try {
-            save();
+            saveToFile();
         } catch (ManagerSaveException e) {
             e.printStackTrace();
         }
@@ -234,7 +232,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public void updateSubtask(Subtask subtask, Status status, int idEpic) {
         super.updateSubtask(subtask,  status, idEpic);
         try {
-            save();
+            saveToFile();
         } catch (ManagerSaveException e) {
             e.printStackTrace();
         }
@@ -244,7 +242,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public void updateEpic(Epic epic) {
         super.updateEpic(epic);
         try {
-            save();
+            saveToFile();
         } catch (ManagerSaveException e) {
             e.printStackTrace();
         }
@@ -254,7 +252,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public void deleteTaskOfId(int id) {
         super.deleteTaskOfId(id);
         try {
-            save();
+            saveToFile();
         } catch (ManagerSaveException e) {
             e.printStackTrace();
         }
@@ -264,7 +262,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public void deleteSubtaskOfId(int id) {
         super.deleteSubtaskOfId(id);
         try {
-            save();
+            saveToFile();
         } catch (ManagerSaveException e) {
             e.printStackTrace();
         }
@@ -274,7 +272,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public void deleteEpicOfId(int id) {
         super.deleteEpicOfId(id);
         try {
-            save();
+            saveToFile();
         } catch (ManagerSaveException e) {
             e.printStackTrace();
         }
@@ -284,7 +282,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public ArrayList<Subtask> getEpicSubtasksList(Epic epic) {
         ArrayList<Subtask> subtasksList = super.getEpicSubtasksList(epic);
         try {
-            save();
+            saveToFile();
         } catch (ManagerSaveException e) {
             e.printStackTrace();
         }

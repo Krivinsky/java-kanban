@@ -14,9 +14,8 @@ public class Task {
     protected LocalDateTime startTime;
     protected long duration;
     protected LocalDateTime endTime;
-    protected User user;
+//    protected User user;
 
-    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd_MM_yyyy|HH:mm");
 
     public Task(int id, String name, String description, TypeTask typeTask, Status status, LocalDateTime startTime, long duration) { //для тестов
         this.id = id;
@@ -34,16 +33,17 @@ public class Task {
         this.typeTask = typeTask;
         this.startTime = startTime;
         this.duration = duration;
+        this.endTime = getEndTime();
     }
 
-    public Task(String name, String description, TypeTask typeTask, LocalDateTime startTime, long duration, User user) {
-        this.name = name;
-        this.description = description;
-        this.typeTask = typeTask;
-        this.startTime = startTime;
-        this.duration = duration;
-        this.user = user;
-    }
+//    public Task(String name, String description, TypeTask typeTask, LocalDateTime startTime, long duration, User user) {
+//        this.name = name;
+//        this.description = description;
+//        this.typeTask = typeTask;
+//        this.startTime = startTime;
+//        this.duration = duration;
+//        this.user = user;
+//    }
     public Task(String name, String description, TypeTask typeTask){
         this.name = name;
         this.description = description;
@@ -82,20 +82,27 @@ public class Task {
         this.status = status;
     }
 
-    public User getUser() {
-        return user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
+
 
     @Override
     public  String toString(){
-        return  id + "," + typeTask.toString() + "," + name + "," + status.toString()
+        return  id + ","
+                + typeTask.toString() + ","
+                + name + ","
+                + status.toString()
                 + "," + description +  ","
-                + (startTime.format(outputFormatter)) + ","  + duration + "," + (getEndTime().format(outputFormatter)) ;
+                + (startTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)) + ","
+                + duration + "," + (getEndTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)) ;
     }
+
+
     public long getDuration() {
         return duration;
     }
