@@ -21,7 +21,13 @@ public final class Managers {
 
     public static final FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager();
 
-    public static TaskManager getDefault() throws ManagerSaveException {
+    //public static final HttpTaskManager httpTaskManager = new HttpTaskManager(KVServer.PORT);
+
+    public static HttpTaskManager getDefaultHttpTaskManager() {
+        return new HttpTaskManager(KVServer.PORT);
+    }
+
+    public static TaskManager getDefault() {
         return taskManager;
     }
 

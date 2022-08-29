@@ -16,11 +16,13 @@ class HttpTaskManagersTest extends TaskManagerTest<HttpTaskManager> {
     private KVServer kvServer;
 
     @BeforeEach
-    void setUp() throws ManagerSaveException, IOException {
-        taskManager = new HttpTaskManager(KVServer.PORT);
+    void setUp() throws IOException {
+        //taskManager = new HttpTaskManager(KVServer.PORT);
+
         kvServer = Managers.getDefaultKVServer();
-        taskManagerSetUp();
         kvServer.start();
+        taskManager = Managers.getDefaultHttpTaskManager();
+        taskManagerSetUp();
     }
 
     @AfterEach
@@ -30,10 +32,14 @@ class HttpTaskManagersTest extends TaskManagerTest<HttpTaskManager> {
 
     @Test
     void load() {
+        taskManager.getTaskFromId(task.getId());
+        taskManager.save();
+        taskManager.load();
     }
 
     @Disabled
     @Test
     void save() {
+        //проходит в тесте void load()
     }
 }

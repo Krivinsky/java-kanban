@@ -37,7 +37,7 @@ public class KVTaskClient {
     return "ошибка";
     }
 
-    public void put(String key, String json) {
+    public void put(String key, String json) {  //сохранять состояние менеджера задач
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -53,6 +53,7 @@ public class KVTaskClient {
     }
 
     public String load(String key)  {   //что должно сюда передаваться? id или "tasks"
+
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -63,6 +64,7 @@ public class KVTaskClient {
             if (response.statusCode() != HttpURLConnection.HTTP_OK) {
                 throw new ManagerSaveException("Ошибка" + response.statusCode());
             }
+            return response.body();
         } catch (Exception e) {
 
         }
