@@ -67,7 +67,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         try {
             String csv = Files.readString(file.toPath());
             String[] lines = csv.split(System.lineSeparator());
-            String heading = lines[0]; //читаем первую строку
+//            String heading = lines[0]; //читаем первую строку
             for (int i = 1; i < lines.length; i++) {
                 String line = lines[i];
                 if (line.isEmpty()) {

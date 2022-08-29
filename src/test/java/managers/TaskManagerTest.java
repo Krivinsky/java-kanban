@@ -1,5 +1,6 @@
 package managers;
 
+import managers.memory.InMemoryHistoryManager;
 import org.junit.jupiter.api.Test;
 import tasks.*;
 
@@ -14,7 +15,7 @@ public abstract class TaskManagerTest <T extends TaskManager>{
     protected Task task;
     protected Epic epic;
     protected Subtask subtask;
-
+    HistoryManager historyManager;
 
     protected void taskManagerSetUp() {
         task = new Task(1,"Task name", "Task description", TypeTask.TASK, Status.NEW, LocalDateTime.of(2022,9,1,10, 0), 90);
@@ -25,6 +26,11 @@ public abstract class TaskManagerTest <T extends TaskManager>{
 
         subtask = new Subtask(3,"Subtask name", "Subtask description",epic.getId(), TypeTask.SUBTASK, Status.NEW, LocalDateTime.of(2022,9,3,10, 0), 90);
         taskManager.creationSubtask(subtask, epic.getId());
+
+        historyManager = new InMemoryHistoryManager();
+        historyManager.addTask(task);
+        historyManager.addTask(epic);
+        historyManager.addTask(subtask);
 
     }
     @Test

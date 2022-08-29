@@ -2,7 +2,7 @@ package tasks;
 
 import java.util.Objects;
 
-public class User {
+public class User {                     /** Делали для тренировки на вебинаре к ТЗ не относится**/
     private int id;
     private String name;
 

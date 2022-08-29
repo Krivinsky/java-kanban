@@ -6,3 +6,20 @@ KVTaskClient - клиент служит для передачи данных в
 Экземпляр FileBackedTaskManager используется пока пишешь эндпоинты и тестируешь их, потом когда будет готов KVTaskClient и KVServer - можно поменять на HTTPTaskManager, либо как Алексей сделал, передавать экземпляр менеджера в конструкторе и иметь возможность работать со всеми видами менеджеров
 
 {"name":"Забрать посылку","description":"Сходить на почту и забрать посылку","id":1,"status":"NEW","typeTask":"TASK","startTime":{"date":{"year":2022,"month":9,"day":1},"time":{"hour":10,"minute":0,"second":0,"nano":0}},"duration":90}
+
+/******************  ДЛЯ ОТЛАДКИ HttpTaskServer  ***********
+    static InMemoryTaskManager inMemoryTaskManager;
+    static Task task1 = new Task("Забрать посылку","Сходить на почту и забрать посылку", TypeTask.TASK, LocalDateTime.of(2022,9,1,10, 0), 90);
+    static Task task2 = new Task("Заменить масло", "Заменить моторное масло в машине", TypeTask.TASK, LocalDateTime.of(2022,9,2,10, 30), 90);
+
+    public static void main(String[] args) throws IOException, ManagerSaveException {
+
+        inMemoryTaskManager = new InMemoryTaskManager();
+        inMemoryTaskManager.creationTask(task1);
+        inMemoryTaskManager.creationTask(task2);
+
+        final HttpTaskServer httpTaskServer = new HttpTaskServer();
+        httpTaskServer.start();
+//        httpTaskServer.stop();
+    }
+/*********************

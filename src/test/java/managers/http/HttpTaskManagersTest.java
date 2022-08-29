@@ -1,6 +1,5 @@
 package managers.http;
 
-import exeptions.ManagerSaveException;
 import managers.Managers;
 import managers.TaskManagerTest;
 import org.junit.jupiter.api.AfterEach;
@@ -17,7 +16,6 @@ class HttpTaskManagersTest extends TaskManagerTest<HttpTaskManager> {
 
     @BeforeEach
     void setUp() throws IOException {
-        //taskManager = new HttpTaskManager(KVServer.PORT);
 
         kvServer = Managers.getDefaultKVServer();
         kvServer.start();

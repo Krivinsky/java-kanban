@@ -7,7 +7,8 @@
 //import managers.Managers;
 //import managers.TaskManager;
 //import managers.UserManager;
-//
+/** Делали для тренировки на вебинаре**/
+/** к ТЗ не относится **/
 //import java.io.IOException;
 //import java.net.InetSocketAddress;
 //import java.util.regex.Pattern;

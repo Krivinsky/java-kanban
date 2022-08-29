@@ -2,7 +2,6 @@ package tasks;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Epic extends Task {
     protected ArrayList<Integer> subtasksId = new ArrayList<>();
@@ -24,13 +23,7 @@ public class Epic extends Task {
     }
 
     public void removeIdFromSubtasksIdList(int subtaskId) {
-        Iterator<Integer> iterator = subtasksId.iterator();
-        while (iterator.hasNext()) {
-            Integer element = iterator.next();
-            if ((int) element == subtaskId) {
-                iterator.remove();
-            }
-        }
+        subtasksId.removeIf(element -> element == subtaskId);
     }
 
     public void setStartTime(LocalDateTime startTime) {

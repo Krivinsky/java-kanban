@@ -2,14 +2,11 @@ package managers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import exeptions.ManagerSaveException;
 import managers.adapters.LocalDateTimeAdapter;
 import managers.file.FileBackedTasksManager;
 import managers.http.HttpTaskManager;
 import managers.memory.InMemoryHistoryManager;
 import managers.memory.InMemoryTaskManager;
-//import managers.memory.InMemoryUserManager;
-import server.HttpTaskServer;
 import server.KVServer;
 
 import java.io.IOException;
@@ -21,22 +18,12 @@ public final class Managers {
 
     public static final FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager();
 
-    //public static final HttpTaskManager httpTaskManager = new HttpTaskManager(KVServer.PORT);
-
     public static HttpTaskManager getDefaultHttpTaskManager() {
         return new HttpTaskManager(KVServer.PORT);
     }
 
     public static TaskManager getDefault() {
         return taskManager;
-    }
-
-    public static HttpTaskServer getDefaultHttpTaskServer() throws ManagerSaveException, IOException {
-        return new HttpTaskServer();
-    }
-
-    public static InMemoryTaskManager getDefaultInMemoryTas() {
-        return new InMemoryTaskManager();
     }
 
     public static FileBackedTasksManager getDefaultFileBackedTasks() {
@@ -46,10 +33,6 @@ public final class Managers {
     public static HistoryManager getDefaultHistory() {
         return new InMemoryHistoryManager();
     }
-
-//    public static UserManager getDefaultUser() throws ManagerSaveException {
-//        return new InMemoryUserManager();
-//    }
 
     public static KVServer getDefaultKVServer() throws IOException {
         return new KVServer();

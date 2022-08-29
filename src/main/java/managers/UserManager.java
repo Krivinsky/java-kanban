@@ -1,12 +1,11 @@
 package managers;
 
-import tasks.Task;
 import tasks.User;
 
 import java.util.List;
 
-public interface UserManager {
-
+public interface UserManager {                      /* Делали для тренировки на вебинаре */
+                                                            /** к ТЗ не относится **/
     TaskManager getTaskManager();
 
     Integer add(User user);
@@ -17,9 +16,8 @@ public interface UserManager {
 
     List<User> getAll();
 
-    List<Task> getUserTasks(int id);
+//    List<Task> getUserTasks(int id);
 
     void delete(int id);
-
 
 }

@@ -1,9 +1,7 @@
 package managers.client;
 
-import exeptions.ManagerLoadException;
 import exeptions.ManagerSaveException;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -11,8 +9,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class KVTaskClient {
-    private String url;
-    private String apiToken;
+    private final String url;
+    private final String apiToken;
 
     public KVTaskClient(int port) {
         url = "http://localhost:" + port;
@@ -32,7 +30,7 @@ public class KVTaskClient {
             }
             return response.body();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     return "ошибка";
     }
@@ -49,10 +47,11 @@ public class KVTaskClient {
                 throw new ManagerSaveException("Ошибка" + response.statusCode());
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public String load(String key)  {   //что должно сюда передаваться? id или "tasks"
+    public String load(String key)  {
 
         try {
             HttpClient client = HttpClient.newHttpClient();
@@ -66,7 +65,7 @@ public class KVTaskClient {
             }
             return response.body();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return null;
     }
